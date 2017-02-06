@@ -1,0 +1,303 @@
+\documentclass[11pt]{amsart}
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{a4paper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+%frame=tb
+\lstset{frame=none ,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  stringstyle=\color{mauve},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\title{Study Guide}
+\author{Object Oriented Modeling and Design}
+%\date{}                                           % Activate to display a given date or no date
+
+
+%--------------------------------------------------------------------------------------------------------
+%DOCUMENT START
+%--------------------------------------------------------------------------------------------------------
+\begin{document}
+\maketitle
+\lstset{language=Java}
+
+\section*{Design Principles}
+
+\begin{itemize}
+\item SRP: Single Responsibility Principle
+	\begin{itemize}
+	  \item ``A class should have only one reason to change.'' (Martin)
+	  \item En klass med flera ansvarsområden ger bräcklighet.
+	  \item En klass utan ansvar är onödig.
+	\end{itemize}
+\item OCP: Open-Closed Principle
+	\begin{itemize}
+	  \item ``Classes should be open for extension and closed for modification.''
+	  (Meyer)
+	  \item Det skall vara möjligt att lägga till ny funktionalitet utan att
+	  modifiera existerande kod.
+	\end{itemize}
+\item DIP: Dependency Inversion Principle %TODO lec3 p9
+\item DRY: Don't Repeat Yourself Principle
+	\begin{itemize}
+	  \item ``Every piece of knowledge must have a single, unambiguous,
+	  authoritative representation within a system'' (Hunt and Thomas)
+	\end{itemize}
+\item ISP: Inferface Segregation Principle
+\item LSP: 
+\end{itemize}
+
+\section*{Design Patterns/Mönster}
+
+\begin{itemize}
+\item Visitor
+\item Command
+\item Composite
+\item Template
+\item Strategy
+\end{itemize}
+
+
+
+\section{Lecture 1}
+\begin{itemize}
+\item Info
+	\begin{itemize}
+	\item Points for \"{O}vning on Tenta!
+	\end{itemize}
+\item DelA: OMD objekt-modeling-design
+	\begin{itemize}
+	\item Classes
+	\item Object
+	\item Abstraction
+	\item Encapsulation (Inkapsling)
+	\end{itemize}
+\item Graphs
+	\begin{itemize}
+	\item Intro
+		\begin{itemize}
+		\item a set of nodes and a set of bows: 
+			\begin{itemize}
+			\item \{ A , B , C \}
+			\item \{ $<$A,B$>$ , $<$B,C$>$ , $<$C,A$>$ \}
+			\end{itemize}
+		\item weighted graphs
+		\end{itemize}
+	
+	
+	\item Representation
+		\begin{itemize}
+		\item Matrix
+		\item Adjacency-list ``N\"{a}rhetslista''
+		\end{itemize}
+	\item Before Lab 1
+		\begin{itemize}
+		\item Must implement our own data structures for Graphs
+		\item Make sure you understand the ADT Graph
+		\item construct
+		\item add Node
+		\item add Bow
+		\item Iterate over all nodes
+		\item Iterate over all bows
+		\item SOMETHING
+		\end{itemize}
+	\end{itemize}
+\item This week
+	\begin{itemize}
+	\item first 6 chapters
+	\item lab 1 redovisas 20/1
+	\item lab 2 and \"{o}vning redovisas 25/1
+	\end{itemize}
+\item Example:
+\end{itemize}
+
+\begin{lstlisting}
+//test
+"string"
+public class DiGraph{
+	public Vertex firstVertex(){...}
+	public void insertVertex(Vertex v){...}
+	public void insertEdge(Vertex v , Vertex x , Edge e){...}
+	
+	public void iterateVertex(){
+		Vertex v = firstVertex;
+		while(v != null){
+			v = v.nextVertex();
+		}
+	}
+	
+}
+
+public class Vertex{
+	public Vertex nextVertex(){...}
+	public Edge firstEdge(){...}
+	...
+}
+
+public class Edge{
+	public Edge nextEdge(){...}
+	public Vertex endpoint(){...}
+	...
+}
+\end{lstlisting}
+
+\section{Lecture 2}
+\begin{itemize}
+\item Agenda
+	\begin{itemize}
+	\item Grafer (depth-first-traversal)
+	\item Object oriented modeling
+	\end{itemize}
+\item Depth-first
+	\begin{itemize}
+	\item Grafer (depth-first-traversal)
+	\item Object oriented modeling
+	\end{itemize}
+\end{itemize}
+
+\section{Lecture 3}
+
+
+\subsection{principles}
+\begin{itemize}
+\item SRP
+\item OCP
+\item DIP
+\item DRY
+\item Theres discussion of a ``Lokalitetsprincpen''
+\end{itemize}
+
+\subsection{patterns}
+
+\begin{itemize}
+  \item Visitor
+  \item Command
+  \item Composite
+\end{itemize}
+
+\subsection{Pittfalls/smells}
+\begin{itemize}
+  \item Rigidity ``Stelhet'' - The design is difficult to modify
+  \item Fragility ``Bräcklighet''- The design doesn't handle modification
+  \item Immobility ``Orörlighet - Design prevents reuse and recycling
+  \item Viscosity ``Seghet''? maybe ``Tröghet'' - It's more difficult to
+  implement slick changes than it is to hack
+\end{itemize}
+
+\subsection{Measurement of design quality}
+\begin{itemize}
+  \item Coupling ``Koppling'' - The grade (level?) of dependency on other
+  modulels in the system
+  \item Cohesion ``Sammanhang'' - The grade (level?) of affenity/togetherness in
+  the same moduel 
+\end{itemize}
+
+\subsection{Lokalitetsprincpen (Locality Principle?)}
+\begin{itemize}
+  \item Competition? 
+  \item Delegerar arbetet till den klass som vet allt om Race:
+  \item Delegerar arbetet till den klass som vet allt om Result:
+\end{itemize}
+\begin{lstlisting}
+public class Competition {
+	private ArrayList<Race> races; 
+	public void computeTotal() {
+		for(Race race: races ) { 
+		race.computeTotal();
+		} 
+	}	
+	...
+}
+\end{lstlisting}
+
+\subsection{SRP - Enkelt ansvar}
+
+\begin{itemize}
+  \item Single Responsibility Principle
+  \item ``A class should have only one reason to change.''
+  \item ``A class with many responcibilities leads to fragility ``bräcklighet''
+  \item A class without responsibility is uneccessary. 
+  \item Delegate the responcibilities.
+\end{itemize}
+
+\begin{lstlisting}
+public class Result {
+	private Name name;
+	private IdNumber idNumber; 
+	private Time start, end;
+	 
+	public String fullName() {
+		return name.toString(); 
+	}
+	
+	public Time total() {
+	return end.difference(start);
+	}
+}
+\end{lstlisting}
+
+\subsection{OCP - Open to extention/Closed to modification}
+$ $
+\begin{itemize}
+  \item Det skall vara möjligt att lägga till ny funktionalitet utan att
+  modifiera existerande kod.
+\end{itemize}
+\begin{lstlisting}
+// --------- GOOD ---------
+public interface Expr{
+	public int value();
+}
+
+public class Abs implements Expr { 
+	private Expr expr;
+	public int value(){
+  		return Math.abs(expr.value()); }
+	}
+
+
+// --------- BAD  ---------
+public class Circle { 
+	int radius;
+	int x, y;
+	public Circle(int radius, int x, int y) {
+		this.radius = radius; this.x = x;
+		this.y = y;
+	}
+ }
+\end{lstlisting}
+
+\section{Lecture 4}
+
+\begin{itemize}
+\item Template method
+\item Strategy
+\item State
+\end{itemize}
+%try to solve the thing 148-150 (sketch a UML diagram) 
+
+
+\end{document}
