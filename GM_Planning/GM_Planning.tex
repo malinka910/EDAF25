@@ -1,0 +1,108 @@
+\documentclass[11pt]{article}
+\usepackage{termcal}
+\renewcommand{\calprintclass}{}
+
+% --------------------------------------------------------------------
+% Encoding and Language Settings
+% --------------------------------------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}			% encoding may need to be changed depending on the system
+\usepackage[swedish]{babel}
+\usepackage{lipsum}					% Lorem Ipsum
+\usepackage{color}
+
+% Few useful commands (our classes always meet either on Monday and Wednesday 
+% or on Tuesday and Thursday)
+
+\newcommand{\Grupp}{%
+\calday[Mån]{\classday} % Monday
+\calday[Tis]{\classday} % Tuesday
+\calday[Ons]{\classday} % Wednesday
+\calday[Tors]{\classday} % Thursday
+\calday[Fre]{\classday} % Friday 
+%\calday[Lör]{\classday} % Saturday 
+%\calday[Sön]{\classday} % Sunday 
+\skipday\skipday % weekend (no class)
+}
+
+
+
+\newcommand{\TentaPlugg}[2]{%
+\options{#1}{\noclassday}
+\caltext{#1}{#2}
+}
+
+\renewcommand{\calprintdate}{%
+     \ifnewmonth \arabic{date}/0\arabic{month}%
+     \else\arabic{date}/0\arabic{month}%
+     \fi}
+
+\begin{document}
+\paragraph*{Planering V6:}
+{\fontsize{8pt}{0.2cm}\selectfont
+\begin{itemize}
+\item 
+\end{itemize}
+}
+\begin{center}
+% --------------------------------------------------------------------
+% Calendar Start
+% --------------------------------------------------------------------
+\begin{calendar}{2/6/2017}{2} % Semester starts on 1/11/2010 and last for 10
+                    % weeks, including finals week
+\setlength{\calboxdepth}{5cm}
+
+% --------------------------------------------------------------------
+% Group Calendar
+% --------------------------------------------------------------------
+\Grupp
+
+
+% V6
+\caltext{2/6/2017}{{\fontsize{5pt}{0.2cm}\selectfont 
+{\color{blue}{ - läsa OMD (12, 15-19)}}\\
+{\color{blue}{ - Databas labb prep}}\\
+}}
+\caltext{2/7/2017}{{\fontsize{5pt}{0.2cm}\selectfont 
+{\color{blue}{ - Börja OMD Projket}}\\
+-Lunch w/ Christin\\
+{\color{blue}{ - Styr/regl lab-prep}}\\
+}}
+\caltext{2/8/2017}{{\fontsize{5pt}{0.2cm}\selectfont 
+- Styr/reglerteknik\\
+}}
+\caltext{2/9/2017}{{\fontsize{5pt}{0.2cm}\selectfont 
+- Databas labb\\
+}}
+\caltext{2/10/2017}{{\fontsize{5pt}{0.2cm}\selectfont 
+- OMD labb\\
+}}
+
+% V6
+\caltext{2/13/2017}{{\fontsize{5pt}{0.2cm}\selectfont 
+}}
+\caltext{2/14/2017}{{\fontsize{5pt}{0.2cm}\selectfont 
+}}
+\caltext{2/15/2017}{{\fontsize{5pt}{0.2cm}\selectfont 
+- Styr/reglerteknik\\
+}}
+\caltext{2/16/2017}{{\fontsize{5pt}{0.2cm}\selectfont 
+-Lunch w/ Christin\\
+- Databas labb\\
+}}
+\caltext{2/17/2017}{{\fontsize{5pt}{0.2cm}\selectfont 
+- OMD-övning\\ 
+- Styr/reglerteknik\\ 
+}}
+
+% Tenta
+%\TentaPlugg{1/18/2010}{TentaName}
+%\caltext{4/27/2010}{\textbf{Final Exam}}
+%\options{4/26/2010}{\noclassday} % finals week
+
+\end{calendar}
+% --------------------------------------------------------------------
+% Calendar End
+% --------------------------------------------------------------------
+\end{center}
+\end{document}

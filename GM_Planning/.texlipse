@@ -1,0 +1,14 @@
+#TeXlipse project settings
+#Mon Feb 06 10:53:30 CET 2017
+markTmpDer=true
+builderNum=2
+outputDir=
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=tmp
+mainTexFile=GM_Planning.tex
+outputFile=GM_Planning.pdf
+langSpell=en
+markDer=true
+srcDir=
