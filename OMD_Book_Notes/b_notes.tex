@@ -1,0 +1,160 @@
+\documentclass[11pt]{amsart}
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{a4paper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+%frame=tb
+\lstset{frame=none ,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\title{Book Notes}
+\author{Object Oriented Modeling and Design}
+%\date{}                                           % Activate to display a given date or no date
+
+
+%--------------------------------------------------------------------------------------------------------
+%DOCUMENT START
+%--------------------------------------------------------------------------------------------------------
+\begin{document}
+\maketitle
+\lstset{language=Java}
+
+
+\section{Agile Software Development}
+
+\subsection{Agile Practices}
+
+\subsubsection{The Manifesto of the Agile Alliance:}
+\begin{itemize}
+\item Individuals and interactions $>$ Processes and tools
+	\begin{itemize}
+	\item Strong player $\neq$ Ace programmer
+	\item Tools are necessary, but ``better'' tools $\neq$ better work. Large, unwieldy tools can be (and often are) just as bad as no tools. 
+	\end{itemize}
+\item Working software $>$ Comprehensive documentation
+	\begin{itemize}
+	\item Martin's first law of documentation: ``Produce no document unless its need is immediate and significant.''
+	\end{itemize}
+\item Customer collaboration $>$ Contract negotiation
+	\begin{itemize}
+	\item Software $\neq$ commodity. Customer collaboration necessary. Contract must be dynamic because project will be dynamic.
+	\end{itemize}
+\item Responding to change $>$ Following a plan
+	\begin{itemize}
+	\item Planning: good. Sticking to an outdated plan: not good. Dynamic plans $\because$ project and requirements are dynamic
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Principles:}
+\begin{itemize}
+\item ``Our highest priority is to satisfy the customer through early and continuous delivery of valuable software.''
+	\begin{itemize}
+	\item  Early delivery of partially functioning system $\Rightarrow$ high quality of the final system.
+	\item More frequent delivery $\Rightarrow$ high final quality.
+	\end{itemize}
+
+\item ``Welcome changing requirements, even late in development. Agile processes harness change for the customer's competitive advantage.''
+	\begin{itemize}
+	\item  keep going from here
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Practices of Extreme Programming:}
+\begin{itemize}
+\item Customer Team Member
+\item User Stories
+\item Short Cycles (software delivery)
+\item Iteration Plan (plan for software delivery)
+\item Release Plan (plan for $\approx$ next 6 iterations)
+\item Acceptance Test (read more about this)
+\item Pair Programming
+\item Test-Driven Development
+\item Collective Ownership
+\item Continuous Integration
+\item Sustainable Pace
+\item Open Workspace
+\item The Planning Game (devision of responsibility between customers/business people and development people)
+\item Simple Design 
+	\begin{itemize}
+	\item Start with the simplest thing that could possibly work $\Rightarrow$ choose most practical solution that is closest to the ideally simple solution.
+	\item You aren't going to need it: Fare more often than not, you won't need that thing ``one day''... No... Don't waste time on that now.
+	\item Once and only once: If you find yourself copy-pasting rows of code $\Rightarrow$ that code needs to be it's own class. Duplicate code is not tolerated.
+	\end{itemize}
+\item Refactoring (code structure degrades/rots and must be frequently refactored)
+\item Metaphor (consider a solution to a jigsaw puzzle: one solution would be to iterate over the pieced until the matching pieces were found. The metaphor is more powerful. The solution extrapolated from the picture is much better. Big picture over details.)
+\end{itemize}
+
+\subsubsection{Planning:}
+\begin{itemize}
+\item Stopped at p20 
+\item Initial Exploration (identify most significant user stories but don't do \textit{all} stories)
+\item Spiking, Splitting, and Velocity  
+	\begin{itemize}
+	\item Large stories tend to be overestimated $\Rightarrow$ split story into smaller pieces.
+	\item Small stories tend towards underestimation $\Rightarrow$ merge them.
+	\item 
+	\end{itemize}
+\end{itemize}
+
+\section{Sec13}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
