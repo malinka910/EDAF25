@@ -12,9 +12,10 @@ public abstract class CountryCurrency implements Currency {
 	}
 
 	@Override
-	public abstract double getExRate() {
-		// TODO Auto-generated method stub
+	public double getExRate(){
 		return 0;
+		// TODO Auto-generated method stub
+		//return 0;
 	}
 
 }

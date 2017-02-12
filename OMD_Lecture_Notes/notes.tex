@@ -62,6 +62,9 @@
 	  modifiera existerande kod.
 	\end{itemize}
 \item DIP: Dependency Inversion Principle %TODO lec3 p9
+	\begin{itemize}
+	  \item ``Dependency on abstractions/ not concrete classes''
+	\end{itemize}
 \item DRY: Don't Repeat Yourself Principle
 	\begin{itemize}
 	  \item ``Every piece of knowledge must have a single, unambiguous,
@@ -298,6 +301,67 @@ public class Circle {
 \item State
 \end{itemize}
 %try to solve the thing 148-150 (sketch a UML diagram) 
+
+\section{Lecture 5}
+\begin{itemize}
+  \item 
+\end{itemize}
+
+
+
+\subsection{General algorithm for Lab 3}
+Use the ADT ``map'' and represent the words with strings only
+\begin{itemize}
+  \item distance = 0
+  \item markera u besökt
+  \item actlevel = tom mängd
+  \item lägg in u i actlevel
+  \item så länge actlevel inte är tom
+  \item nextlevel = tom mängd
+  \item för varje nod w i actlevel
+  \item om w == v
+  \item returnera distance
+  \item för varje granne n till w om n inte är besökt
+  \item markera n besökt
+  \item lägg in n i nextlevel
+  \item distance++;
+  \item actlevel = nextlevel returnera -1
+\end{itemize} 
+
+
+
+\begin{lstlisting}
+// specific implementation Lab 3
+
+Map<String, Set<String>>
+
+public interface SimpleGraph
+	public Set<String>
+		adjacentTo(String);
+
+\end{lstlisting}
+
+
+
+\begin{tabular}{| c | c | c | c |}
+ & syfte & medod & effekt \\
+ Command & x & x & x \\
+ Composit &  & & \\
+ Template & x & x & x \\
+ Strategy & x & x & x \\
+ State & & & \\
+\end{tabular}
+
+
+
+
+
+
+
+
+
+
+
 
 
 \end{document}
