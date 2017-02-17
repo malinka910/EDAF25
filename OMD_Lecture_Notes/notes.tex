@@ -61,14 +61,21 @@
 	  \item Det skall vara möjligt att lägga till ny funktionalitet utan att
 	  modifiera existerande kod.
 	\end{itemize}
-\item DIP: Dependency Inversion Principle %TODO lec3 p9
+\item DIP: Dependency Inversion Principle (slides lec. 3) %TODO lec3 p9
 	\begin{itemize}
 	  \item ``Dependency on abstractions/ not concrete classes''
+	  \item Bassically we're talking about making programs dependant on interfaces
+	  instead of classes. 
 	\end{itemize}
-\item DRY: Don't Repeat Yourself Principle
+\item DRY: Don't Repeat Yourself Principle (slides lec. 4)
 	\begin{itemize}
 	  \item ``Every piece of knowledge must have a single, unambiguous,
-	  authoritative representation within a system'' (Hunt and Thomas)
+	  authoritative representation within a system'' (Hunt and Thomas).
+	  \item Repedative process? $\rightarrow$ automate
+	  \item Repeditive function? $\rightarrow$ find applicable design pattern.
+	  \item Repedative, reoccuring probems? $\rightarrow$ define a new design
+	  pattern.
+	  \item Repedative logic? $\rightarrow$ abstract it.
 	\end{itemize}
 \item ISP: Inferface Segregation Principle
 \item LSP: 
@@ -80,8 +87,10 @@
 \item Visitor
 \item Command
 \item Composite
-\item Template
-\item Strategy
+\item Template/mallmetod (slides lec. 4)
+\item Strategy/strategi (slides lec. 4)
+\item State
+\item Null Object
 \end{itemize}
 
 
@@ -295,12 +304,72 @@ public class Circle {
 
 \section{Lecture 4}
 
+\subsection{Design Patterns}
 \begin{itemize}
-\item Template method
-\item Strategy
+\item Template method:
+	\begin{itemize}
+	  \item Break out the stuff that's the common.
+	  \item Stick the common stuff in an abstract class.
+	  \item Fill in the holes with calls of abstract methods that are implemented
+	  in the subclasses.
+	  \item Templates aren't very usable when the process has more than just
+	  functionallity that can vairy.
+	\end{itemize}
+\item Strategy/strategi
+	\begin{itemize}
+	  \item Strategy patters are used when one wants to change how an operation is
+	  preformed \textit{durring} the execution of the program.
+	  \item An example of how to use a stratey pattern is below
+	\end{itemize}
 \item State
+	\begin{itemize}
+	\end{itemize}
 \end{itemize}
 %try to solve the thing 148-150 (sketch a UML diagram) 
+
+\subsection{Template method ``Mallmetod''}
+\begin{lstlisting}
+
+\end{lstlisting}
+
+\subsection{Strategy ``strategi''}
+//The list is defined first
+\begin{lstlisting}
+public class List<T> extends ArrayList<T> { 
+	private Prefix prefix = new Empty();
+	public void setPrefix(Prefix prefix) {
+		this.prefix = prefix;
+	}
+	public String toString(){
+		StringBuilder builder = new StringBuilder();
+		for(T t :this){
+			builder.append(prefix.string());
+			builder.append(t).append("\n");
+		}
+		return builder.toString();
+	}
+}
+
+//Then the strategy is defined
+public interface Prefix{
+	public String string();
+}
+
+//Then the strategy classes are defined
+public class Star implements Prefix{
+	public String string(){
+		return "*";
+	}
+}
+public class Numbered implements Prefix{
+	private int number;
+	public String string(){
+		number++;
+		return String.valueOf(number) + " ";
+	}
+}
+\end{lstlisting}
+
 
 \section{Lecture 5}
 \begin{itemize}
@@ -352,9 +421,46 @@ public interface SimpleGraph
  State & & & \\
 \end{tabular}
 
+\section{Lecture 6}
+
+\begin{itemize}
+  \item Design principles (LSP)
+  \item Patterns: (Singleton, Model-View-Control, Observer)
+  \item Graph-algorithms: (Shortest-path, Dijkstra)
+\end{itemize}
+
+\subsection{Singelton}
+% Only one instance of an object in the system
+% Singelton code lec.6
 
 
 
+\subsection{(LSP) Liskov Substitution Principle}
+% lec. 6 slides
+
+\subsections{Graphs}
+
+\subsubsection{Dijstras}
+
+\begin{tabular}{| l | c | c | c | c | c | c | c |}
+ & A & B & C & D & E & F & G \\ 
+0 & & & & & & &\\
+1 & & & & & & &\\
+2 & & & & & & &\\
+3 & & & & & & &\\
+4 & & & & & & &\\
+5 & & & & & & &\\
+
+\end{tabular}
+
+% Bellman Fords
+
+\subsection{Lab 4}
+
+% use the priority queue
+% psuedo-code in slides for lec. 6
+% red line in psuedo-code should use a map. 
+% stick in a second node into the priority-queue if a new short is found
 
 
 
