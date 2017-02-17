@@ -1,0 +1,135 @@
+\documentclass[11pt]{amsart}
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{a4paper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+%frame=tb
+\lstset{frame=none ,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  stringstyle=\color{mauve},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\title{Design Patterns}
+\author{Object Oriented Modeling and Design}
+%\date{}                                           % Activate to display a given date or no date
+
+
+%--------------------------------------------------------------------------------------------------------
+%DOCUMENT START
+%--------------------------------------------------------------------------------------------------------
+\begin{document}
+\maketitle
+\lstset{language=Java}
+
+\section{List of Patterns}
+\begin{itemize}
+\item Visitor
+\item Command
+\item Composite
+\item Template/mallmetod (slides lec. 4)
+\item Strategy/strategi (slides lec. 4)
+\item State
+\item Null Object % needed for exercise 3
+\item Decorator % needed for exercise 3
+\item MVC (Model View Control-archetecture) % needed for exercise 3 (observer
+% framework)
+\item Observer (slides lec. 6)
+\end{itemize}
+
+\section{Visitor}
+
+\section{Command}
+
+\section{Composite}
+
+\section{Template}
+
+\section{Strategy}
+\begin{itemize}
+  \item Compared with template:
+  	\begin{itemize}
+  	  \item Both patterns are used to eleminate duplacate code
+  	  \item Use \underline{template when the functionality will be the same} for
+  	  the whole life span of the object.
+  	  \item Use \underline{strategy when the functionality needs to change} for.
+  	\end{itemize}
+  	\item Strategy compared with state: (slide lec.4 good diagrams)
+	\item Stratigies don't have states.
+\end{itemize}
+
+\begin{lstlisting}
+//two strategy interfaces
+
+public interface Tariff {
+	public Money price(int zones);
+}
+
+public interface Rebate {
+	public Money price(double price);
+}
+
+//two strategy implementations
+
+public class Skane implements Tariff { 
+	public Money price(int zones) {
+		switch (zones) { 
+			case 1: return 17.0; 
+			default: return 7.0 * zones + 7.0;
+		} 
+	}
+}
+
+public class Family implements Rebate {
+	public Money price(double price) { 
+		return 1.5 *price;
+	} 
+}
+\end{lstlisting}
+
+\section{State}
+
+\section{Null Object}
+% lec. 6
+
+\section{Decorator}
+% lec. 5 & 6 slides
+% difference between decorator and composite lec.6 slides
+
+\section{MVC}
+% pic in slides lec. 6
+
+\section{Observer}
+
+\begin{itemize}
+  \item Observer and Observable java implementations
+  \item Seperate model from the view
+  \item slides lec.6
+  \item java code lec. 6 slides
+\end{itemize}
+
+
+\end{document}

@@ -1,0 +1,14 @@
+#TeXlipse project settings
+#Sun Feb 12 13:55:04 CET 2017
+markTmpDer=true
+builderNum=2
+outputDir=
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=tmp
+mainTexFile=Principles.tex
+outputFile=Principles.pdf
+langSpell=en
+markDer=true
+srcDir=
