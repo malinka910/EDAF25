@@ -6,6 +6,11 @@ import computer.PC;
 import computer.hardware.Memory;
 import computer.hardware.Word;
 
+/**
+ * The Program class contains an ArrayList instead of inheriting from ArrayList to make 
+ * it easier for the Instruction objects to have access to the program context (i.e. the 
+ * specific memory object and the specific PC (program counter)). 
+ */
 public abstract class Program {
 
 	/**
@@ -40,6 +45,13 @@ public abstract class Program {
 		return builder.toString();
 	}
 	
+	/**
+	 * To execute instructions, all Instruction objects will need access to the same Memory Object 
+	 * and the same PC from the computer. References to these are attributes that are set at load() 
+	 * by the Computer object.
+	 * @param context = the memory of the computer
+	 * @param pc = the program counter in the computer
+	 */
 	public void setContext(Memory context, PC pc){
 		this.context = context;
 		this.pc = pc;
@@ -49,6 +61,11 @@ public abstract class Program {
 	// Address Class
 	//-----------------------------------
 	
+	/**
+	 * Address implements the Word interface from the hardware package so that it can be used 
+	 * in the same was a word objects, but it also has specific methods to replace existing words in 
+	 * the memory. 
+	 */
 	class Address implements Word {
 		private int address;
 		public Address(int address){
@@ -188,6 +205,9 @@ public abstract class Program {
 
 	}
 	
+	/**
+	 * PRT Instruction
+	 */
 	protected class Print implements Instruction {
 		
 		private Word w;
@@ -213,6 +233,9 @@ public abstract class Program {
 		
 	}
 	
+	/**
+	 * HLT Instruction
+	 */
 	protected class Halt implements Instruction {
 		
 		public Halt(){
@@ -231,6 +254,9 @@ public abstract class Program {
 		
 	}
 	
+	/**
+	 * JMP Instruction
+	 */
 	protected class Jump implements Instruction {
 		
 		private long jumpTo;
@@ -253,6 +279,9 @@ public abstract class Program {
 		
 	}
 	
+	/**
+	 * CPY Instruction
+	 */
 	protected class Copy implements Instruction {
 		
 		private Word w1;
