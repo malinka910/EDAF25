@@ -4,28 +4,32 @@ import java.util.ArrayList;
 
 import computer.software.Program;
 
-public abstract class Memory extends ArrayList<Word> {
+public abstract class Memory {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private int sizeMax;
-	private Program program;
+	protected Word[] memory;
 	
 	public Memory(int size){
-		super(size);
-		this.sizeMax = size;
+		memory = new Word[size];
 	}
 	
-	@Override
-	public Word set(int index, Word word){
-		if(index > sizeMax || index < 0){
+	public Word get(int index){
+		if(index > memory.length || index < 0){
 			return null;
 		}else{
-			return super.set(index, word);
+			return memory[index].cpy();
 		}
 	}
+	
+	public void set(int index, Word word){
+		memory[index] = word;
+	}
+	
+	protected abstract void populate(int size);
+	
 
 }
