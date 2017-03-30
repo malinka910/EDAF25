@@ -19,7 +19,6 @@ public abstract class Program {
 	
 	private Memory context;
 	private ArrayList<Instruction> program;
-	private PC pc;
 	
 	public Program(){
 		program = new ArrayList<Instruction>();
@@ -29,8 +28,8 @@ public abstract class Program {
 		program.add(instruction);
 	}
 	
-	public void executeLine(int index){
-		program.get(index).execute(context, pc);
+	public void executeLine(PC pc){
+		program.get(pc.getPC()).execute(context, pc);
 	}
 	
 	@Override
@@ -51,9 +50,8 @@ public abstract class Program {
 	 * @param context = the memory of the computer
 	 * @param pc = the program counter in the computer
 	 */
-	public void setContext(Memory context, PC pc){
+	public void setContext(Memory context){
 		this.context = context;
-		this.pc = pc;
 	}
 
 }

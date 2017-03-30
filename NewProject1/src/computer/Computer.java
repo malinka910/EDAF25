@@ -16,12 +16,12 @@ public class Computer {
 	
 	public void load(Program program){
 		this.program = program;
-		program.setContext(memory, pc);
+		program.setContext(memory);
 	}
 	
 	public void run(){
 		while(pc.getPC() >= 0){
-			program.executeLine(pc.getPC());	
+			program.executeLine(pc);
 		}
 	}
 

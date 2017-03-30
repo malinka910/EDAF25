@@ -21,7 +21,6 @@ public abstract class BinExpression implements Instruction {
 	public void execute(Memory context, PC pc){
 		Word eval = expression(o1.getWord(context),o2.getWord(context));
 		address.getWord(context).setValue(eval);
-		//o1.getWord(context).mul(o2.getWord(context))
 		pc.setPC(pc.getPC() + 1);
 	}
 	
