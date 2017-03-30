@@ -24,7 +24,7 @@ public abstract class Program {
 		program = new ArrayList<Instruction>();
 	}
 	
-	public void add(Instruction instruction){
+	protected void add(Instruction instruction){
 		program.add(instruction);
 	}
 	

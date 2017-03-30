@@ -10,13 +10,9 @@ public class Print implements Instruction {
 	
 	private Operand o;
 	
-	public Print(Operand o){
+	protected Print(Operand o){
 		this.o = o;
 	}
-
-	
-
-	
 
 	@Override
 	public void execute(Memory context, PC pc) {

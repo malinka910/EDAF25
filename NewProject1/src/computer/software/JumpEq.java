@@ -9,7 +9,7 @@ public class JumpEq implements Instruction {
 	private Operand o2;
 	private long jumpTo;
 	
-	public JumpEq(long jumpTo, Operand o1, Operand o2){
+	protected JumpEq(long jumpTo, Operand o1, Operand o2){
 		this.o1 = o1;
 		this.o2 = o2;
 		this.jumpTo = jumpTo;

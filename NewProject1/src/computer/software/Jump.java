@@ -7,7 +7,7 @@ public class Jump implements Instruction {
 	
 	private long jumpTo;
 
-	public Jump(long jumpTo) {
+	protected Jump(long jumpTo) {
 		this.jumpTo = jumpTo;
 	}
 
