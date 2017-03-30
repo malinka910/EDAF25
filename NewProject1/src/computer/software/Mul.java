@@ -1,30 +1,16 @@
 package computer.software;
 
-import computer.PC;
 import computer.hardware.*;
 
+public class Mul extends BinExpression {
 
-public class Mul implements Instruction {
-	
-	private Operand o1;
-	private Operand o2;
-	private Operand address;
-	
-	public Mul(Operand o1, Operand o2, Operand address){
-		this.o1 = o1;
-		this.o2 = o2;
-		this.address = address;
+	protected Mul(Operand o1, Operand o2, Operand address) {
+		super(o1, o2, address, "MUL");
 	}
 
 	@Override
-	public void execute(Memory context, PC pc) {
-		address.getWord(context).setValue(o1.getWord(context).mul(o2.getWord(context)));
-		pc.setPC(pc.getPC() + 1);
-	}
-
-	@Override
-	public String print() {
-		return "MUL " + o1.prt() + " " + o2.prt() + " " + address.prt();
+	protected Word expression(Word o1, Word o2) {
+		return o1.mul(o2);
 	}
 
 }

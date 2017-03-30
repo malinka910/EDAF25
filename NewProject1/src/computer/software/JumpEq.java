@@ -22,7 +22,6 @@ public class JumpEq implements Instruction {
 		}else{
 			pc.setPC(pc.getPC()+1);
 		}
-
 	}
 
 	@Override
