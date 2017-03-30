@@ -41,4 +41,14 @@ public class LongWord implements Word {
 		return value;
 	}
 
+	@Override
+	public void setValue(Word newValue) {
+		value = newValue.getValue();
+	}
+
+	@Override
+	public Word getWord(Memory context) {
+		return this;
+	}
+
 }

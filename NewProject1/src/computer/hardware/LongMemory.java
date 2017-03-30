@@ -14,7 +14,8 @@ public class LongMemory extends Memory {
 	
 	protected void populate(int size){
 		for(int i = 0 ; i < size ; i++){
-			this.set(i, new LongWord(0));
+			this.memory[i] = new LongWord(0);
+			//this.set(i, new LongWord(0));
 		}
 	}
 

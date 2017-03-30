@@ -21,12 +21,8 @@ public abstract class Memory {
 		if(index > memory.length || index < 0){
 			return null;
 		}else{
-			return memory[index].cpy();
+			return memory[index];
 		}
-	}
-	
-	public void set(int index, Word word){
-		memory[index] = word;
 	}
 	
 	protected abstract void populate(int size);
