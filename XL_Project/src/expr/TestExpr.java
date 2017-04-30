@@ -2,6 +2,11 @@ package expr;
 
 import java.io.IOException;
 
+/**
+ * This is just a quick way to check that the input and output of the Spreadsheet and Slot objects are working.
+ * @author Greg
+ *
+ */
 public class TestExpr {
     public static void main(String[] args) {
         ExprParser parser = new ExprParser();
