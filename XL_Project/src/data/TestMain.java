@@ -2,8 +2,6 @@ package data;
 
 import java.io.IOException;
 
-import data.*;
-import expr.Environment;
 import expr.Expr;
 import expr.ExprParser;
 

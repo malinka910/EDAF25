@@ -1,7 +1,10 @@
 package data;
 
 public class XLException extends RuntimeException {
-    public XLException(String message) {
+    
+	private static final long serialVersionUID = 1L;
+
+	public XLException(String message) {
         super(message);
     }
 }

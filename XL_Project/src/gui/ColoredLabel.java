@@ -5,7 +5,10 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 public class ColoredLabel extends JLabel {
-    public ColoredLabel(String text) {
+    
+	private static final long serialVersionUID = 1L;
+
+	public ColoredLabel(String text) {
         this(text, Color.WHITE, SwingConstants.LEFT);
     }
 

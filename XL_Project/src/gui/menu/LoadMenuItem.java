@@ -7,7 +7,9 @@ import javax.swing.JFileChooser;
 
 class LoadMenuItem extends OpenMenuItem {
  
-    public LoadMenuItem(XL xl, StatusLabel statusLabel) {
+	private static final long serialVersionUID = 1L;
+
+	public LoadMenuItem(XL xl, StatusLabel statusLabel) {
         super(xl, statusLabel, "Load");
     }
 

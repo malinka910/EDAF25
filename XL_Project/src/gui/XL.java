@@ -12,9 +12,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class XL extends JFrame implements Printable {
-    private static final int ROWS = 10, COLUMNS = 8;
+    
+	private static final long serialVersionUID = 1L;
+	private static final int ROWS = 10, COLUMNS = 8;
     private XLCounter counter;
     private StatusLabel statusLabel = new StatusLabel();
+    //This window's current label will be constructed in the main frame so that the slot labels can have access to it
+    private CurrentLabel currentLabel = new CurrentLabel();
     private XLList xlList;
 
     public XL(XL oldXL) {
@@ -27,9 +31,10 @@ public class XL extends JFrame implements Printable {
         this.counter = counter;
         xlList.add(this);
         counter.increment();
-        JPanel statusPanel = new StatusPanel(statusLabel);
-        JPanel sheetPanel = new SheetPanel(ROWS, COLUMNS);
         Editor editor = new Editor();
+        JPanel statusPanel = new StatusPanel(statusLabel, currentLabel);
+        JPanel sheetPanel = new SheetPanel(ROWS, COLUMNS, currentLabel, editor);
+        //editor.addObserver()
         add(NORTH, statusPanel);
         add(CENTER, editor);
         add(SOUTH, sheetPanel);

@@ -12,7 +12,9 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public abstract class OpenMenuItem extends JMenuItem implements ActionListener {
-    protected StatusLabel statusLabel;
+    
+	private static final long serialVersionUID = 1L;
+	protected StatusLabel statusLabel;
     protected XL xl;
 
     protected OpenMenuItem(XL xl, StatusLabel statusLabel, String title) {

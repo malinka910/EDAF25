@@ -1,15 +1,12 @@
 package gui;
 
 import java.awt.Color;
-import java.util.Observable;
-import java.util.Observer;
 
-public class StatusLabel extends ColoredLabel implements Observer {
-    public StatusLabel() {
+public class StatusLabel extends ColoredLabel {
+    
+	private static final long serialVersionUID = 1L;
+
+	public StatusLabel() {
         super("", Color.WHITE);
-    }
-
-    public void update(Observable observable, Object object) {
-        setText("");
     }
 }

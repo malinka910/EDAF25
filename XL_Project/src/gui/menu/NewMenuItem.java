@@ -6,7 +6,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenuItem;
 
 class NewMenuItem extends JMenuItem implements ActionListener {
-    private XL xl;
+    
+	private static final long serialVersionUID = 1L;
+	private XL xl;
 
     public NewMenuItem(XL xl) {
         super("New");

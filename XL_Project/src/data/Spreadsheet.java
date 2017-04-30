@@ -14,7 +14,7 @@ import expr.ExprParser;
  * The data structure of for the XL program. It stores the spreadsheet data as an address-content mapping 
  * using a Hashmap<String,Slot>. It is also an observable that will update all of its observers when data 
  * is inserted or removed from the spreadsheet.
- * TODO: the strategy for loop checking is unimplimented as of yet.
+ * TODO: the strategy for loop checking is unimplemented as of yet.
  * @author Greg
  *
  */

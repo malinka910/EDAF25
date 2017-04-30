@@ -15,7 +15,9 @@ import javax.swing.JMenuItem;
 import data.XLException;
 
 class PrintMenuItem extends JMenuItem implements ActionListener {
-    private StatusLabel statusLabel;
+    
+	private static final long serialVersionUID = 1L;
+	private StatusLabel statusLabel;
     private XL xl;
 
     public PrintMenuItem(XL xl, StatusLabel statusLabel) {

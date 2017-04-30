@@ -6,7 +6,10 @@ import java.io.FileNotFoundException;
 import javax.swing.JFileChooser;
 
 class SaveMenuItem extends OpenMenuItem {
-    public SaveMenuItem(XL xl, StatusLabel statusLabel) {
+    
+	private static final long serialVersionUID = 1L;
+
+	public SaveMenuItem(XL xl, StatusLabel statusLabel) {
         super(xl, statusLabel, "Save");
     }
 

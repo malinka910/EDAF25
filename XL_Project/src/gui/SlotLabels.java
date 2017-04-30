@@ -6,9 +6,13 @@ import java.util.List;
 import javax.swing.SwingConstants;
 
 public class SlotLabels extends GridPanel {
-    private List<SlotLabel> labelList;
+    
+	private static final long serialVersionUID = 1L;
+	
+	private List<SlotLabel> labelList;
+    private SlotLabel currentSlot;
 
-    public SlotLabels(int rows, int cols) {
+    public SlotLabels(int rows, int cols, CurrentLabel currentLabel, Editor editor) {
         super(rows + 1, cols);
         labelList = new ArrayList<SlotLabel>(rows * cols);
         for (char ch = 'A'; ch < 'A' + cols; ch++) {
@@ -17,12 +21,39 @@ public class SlotLabels extends GridPanel {
         }
         for (int row = 1; row <= rows; row++) {
             for (char ch = 'A'; ch < 'A' + cols; ch++) {
-                SlotLabel label = new SlotLabel();
+            	StringBuilder builder = new StringBuilder();
+            	builder.append(ch);
+            	builder.append(row);
+                SlotLabel label = new SlotLabel(builder.toString());
+                label.addSelectListener(new EditorSelectListener(editor));
+                label.addSelectListener(new StatusSelectListener(currentLabel));
+                label.addSelectListener(new SelectListener(){
+                	public void selectEventOccured(SelectEvent select){
+                		String labelName = select.getLabelName();
+                		setCurrentSlot(labelList.get(labelIndex(labelName)));
+                		//System.out.println("SelectEvent: " + labelName);
+                	}
+                });
                 add(label);
                 labelList.add(label);
             }
         }
-        SlotLabel firstLabel = labelList.get(0);
-        firstLabel.setBackground(Color.YELLOW);
+        currentSlot = labelList.get(0);
+        currentSlot.setBackground(Color.YELLOW);
     }
+    
+    private void setCurrentSlot(SlotLabel selected){
+    	currentSlot.setBackground(Color.WHITE);
+    	currentSlot = selected;
+    	currentSlot.setBackground(Color.YELLOW);
+    }
+    
+    private int labelIndex(String labelName){
+    	char letter = labelName.charAt(0);
+    	int number = Integer.parseInt(labelName.substring(1));
+    	int index = (letter-'A') + ((number-1)*8);
+    	return index;
+    }
+	
+    
 }

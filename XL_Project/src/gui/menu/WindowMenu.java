@@ -7,7 +7,9 @@ import java.util.Observer;
 import javax.swing.JMenu;
 
 public class WindowMenu extends JMenu implements Observer {
-    private XLList xlList;
+    
+	private static final long serialVersionUID = 1L;
+	private XLList xlList;
 
     public WindowMenu(XLList xlList) {
         super("Window");

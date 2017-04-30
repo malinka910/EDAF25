@@ -7,7 +7,10 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 
 public class XLMenuBar extends JMenuBar {
-    public XLMenuBar(XL xl, XLList xlList, StatusLabel statusLabel) {
+    
+	private static final long serialVersionUID = 1L;
+
+	public XLMenuBar(XL xl, XLList xlList, StatusLabel statusLabel) {
         JMenu file = new JMenu("File");
         JMenu edit = new JMenu("Edit");
         file.add(new PrintMenuItem(xl, statusLabel));

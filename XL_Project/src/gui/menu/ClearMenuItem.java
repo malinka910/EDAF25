@@ -5,7 +5,10 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenuItem;
 
 class ClearMenuItem extends JMenuItem implements ActionListener {
-    public ClearMenuItem() {
+    
+	private static final long serialVersionUID = 1L;
+
+	public ClearMenuItem() {
         super("Clear");
         addActionListener(this);
     }
