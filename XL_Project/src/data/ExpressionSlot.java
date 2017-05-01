@@ -1,5 +1,7 @@
 package data;
 
+import expr.ExprParser;
+
 /**
  * Container for expressions
  * @author Greg
@@ -23,6 +25,15 @@ public class ExpressionSlot implements Slot {
 	@Override
 	public String getContent() {
 		return content.toString();
+	}
+
+	@Override
+	public double value(Spreadsheet sheet) {
+		try{
+			return new ExprParser().build(content).value(sheet);
+		}catch(Exception e){
+			throw new XLException(e.getMessage());
+		}
 	}
 
 }

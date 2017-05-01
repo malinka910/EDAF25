@@ -4,24 +4,80 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-
 import javax.swing.JTextField;
 import javax.swing.event.EventListenerList;
 
-public class Editor extends JTextField implements KeyListener {
+
+import expr.ExprParser;
+
+public class Editor extends JTextField implements KeyListener, SelectListener {
 	
 	private static final long serialVersionUID = 1L;
 	private EventListenerList listenerList = new EventListenerList();
-	
 	private String currentSlot;
 	
+	/** Editor instantiated with default slot 'A1'. 
+	 * Editor objects listen to SlotLabels for SelectEvents and to themselves for KeyEvents. */
     public Editor() {
         setBackground(Color.WHITE);
         currentSlot = "A1";
         addKeyListener(this);
     }
     
-    public void fireSubmitEvent(SubmitEvent submit){
+    /** The Editor keeps track of the currentSlot by listening for a SlotLabel to fire a SelectEvent. 
+     * It will also display the current content of the slot if any. (i.e. content = comment or expression String) */
+    @Override
+	public void selectEventOccured(SelectEvent event) {
+		this.currentSlot = event.getLabelName();
+		//TODO: Make sure that labelContent = null doesn't cause problems
+		this.setText(event.getLabelContent());
+	}
+
+    /** When the Enter key is pressed, the Editor will check the syntax of the text that the user has 
+     * input to the textField. If the syntax of the text is correct, it will fire a SubmitEvent with the text 
+     * to all SubmitListeners that have registered with it. If the text syntax is not correct, an ExceptionEvent 
+     * with the error text will be fired to all ExceptionListeners registered with the Editor. */
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// When enter key pressed...
+		if(e.getKeyCode() == KeyEvent.VK_ENTER){
+			// Get text from field
+			String text = this.getText();
+			// If text is a comment -> submitEvent
+			if(text.startsWith("#")){
+				fireSubmitEvent(new SubmitEvent(this, currentSlot, text));
+			// If text is an expression...
+			}else{
+				// Try to parse it and see if the syntax is good...
+				ExprParser parser = new ExprParser();
+				try{
+					parser.build(text);
+					// If syntax is good -> submitEvent
+					fireSubmitEvent(new SubmitEvent(this, currentSlot, text));
+				}catch(Exception ex){
+					// If parsing fails -> exceptionEvent
+					fireExceptionEvent(new ExceptionEvent(this, ex.getMessage()));
+				}
+			}
+		}
+	}
+	
+	//---------------------------------------------------------------
+	// add/remove SubmitListeners and fire SubmitEvent
+	//---------------------------------------------------------------
+	
+	/** Add a SubmitListener to the eventListenerList */
+	public void addSubmitListener(SubmitListener listener){
+		listenerList.add(SubmitListener.class, listener);
+	}
+	
+	/** Remove a SubmitListener from the eventListenerList */
+	public void removeSubmitListener(SubmitListener listener){
+		listenerList.remove(SubmitListener.class, listener);
+	}
+	
+	/** Call submitEventOccured() on every SubmitListener in the eventListenerList */
+	public void fireSubmitEvent(SubmitEvent submit){
     	Object[] listeners = listenerList.getListenerList();
 		for(Object l : listeners){
 			if(l instanceof SubmitListener){
@@ -29,30 +85,29 @@ public class Editor extends JTextField implements KeyListener {
 			}
 		}
     }
-    
-    protected void setCurrentSlot(String currentSlot){
-    	this.currentSlot = currentSlot;
-    }
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		System.out.println("SOME KEY PRESSED");
-		if(e.getKeyCode() == KeyEvent.VK_ENTER){
-			System.out.println("ENTER KEY");
-			System.out.println("'" + this.getText() + "' into: " + currentSlot);
-			//TODO: Make sure this connects to a spreadsheet at some point
-			//fireSubmitEvent(new SubmitEvent(this, currentSlot, this.getText()));
-			fireSubmitEvent(new SubmitEvent(this, currentSlot, this.getText()));
-			this.setText("");
+	
+	//---------------------------------------------------------------
+	// add/remove ExceptionListeners and fire ExceptionEvent
+	//---------------------------------------------------------------
+	
+	/** Add an ExceptionListener to the eventListenerList */
+	public void addExceptionListener(ExceptionListener listener){
+		listenerList.add(ExceptionListener.class, listener);
+	}
+	
+	/** Remove an ExceptionListener from the eventListenerList */
+	public void removeExceptionListener(ExceptionListener listener){
+		listenerList.remove(ExceptionListener.class, listener);
+	}
+	
+	/** Call exceptionEventOccured() on every ExceptionListener in the eventListenerList */
+	public void fireExceptionEvent(ExceptionEvent event){
+		Object[] listeners = listenerList.getListenerList();
+		for(Object l : listeners){
+			if(l instanceof ExceptionListener){
+				((ExceptionListener) l).exceptionEventOccured(event);;
+			}
 		}
-	}
-	
-	public void addSubmitListener(SubmitListener listener){
-		listenerList.add(SubmitListener.class, listener);
-	}
-	
-	public void removeSubmitListener(SubmitListener listener){
-		listenerList.remove(SubmitListener.class, listener);
 	}
 	
 	//------------------------------------------
@@ -68,5 +123,7 @@ public class Editor extends JTextField implements KeyListener {
 	public void keyReleased(KeyEvent e) {
 		// DO NOTHING
 	}
+
+	
     
 }

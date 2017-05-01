@@ -22,6 +22,5 @@ public class SubmitEvent extends EventObject {
 	public String getContent(){
 		return content;
 	}
-	
 
 }

@@ -14,7 +14,7 @@ public class SlotLabels extends GridPanel {
 	private List<SlotLabel> labelList;
     private SlotLabel currentSlot;
 
-    public SlotLabels(int rows, int cols, CurrentLabel currentLabel, Editor editor, Spreadsheet spreadsheet) {
+    public SlotLabels(int rows, int cols, CurrentLabel currentLabel, Editor editor, Spreadsheet spreadsheet, StatusLabel statusLabel) {
         super(rows + 1, cols);
         labelList = new ArrayList<SlotLabel>(rows * cols);
         for (char ch = 'A'; ch < 'A' + cols; ch++) {
@@ -27,13 +27,13 @@ public class SlotLabels extends GridPanel {
             	builder.append(ch);
             	builder.append(row);
                 SlotLabel label = new SlotLabel(builder.toString());
-                label.addSelectListener(new EditorSelectListener(editor));
-                label.addSelectListener(new StatusSelectListener(currentLabel));
+                label.addSelectListener(editor);
+                label.addSelectListener(statusLabel);
+                label.addSelectListener(currentLabel);
                 label.addSelectListener(new SelectListener(){
                 	public void selectEventOccured(SelectEvent select){
                 		String labelName = select.getLabelName();
                 		setCurrentSlot(labelList.get(labelIndex(labelName)));
-                		//System.out.println("SelectEvent: " + labelName);
                 	}
                 });
                 add(label);

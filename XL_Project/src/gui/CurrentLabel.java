@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import javax.swing.event.EventListenerList;
 
-public class CurrentLabel extends ColoredLabel {
+public class CurrentLabel extends ColoredLabel implements SelectListener {
 	
 	private static final long serialVersionUID = 1L;
 	EventListenerList listenerList = new EventListenerList();
@@ -13,12 +13,17 @@ public class CurrentLabel extends ColoredLabel {
         super("A1", Color.WHITE);
     }
     
-    public void addSubmitListener(SubmitListener listener){
-    	listenerList.add(SubmitListener.class, listener);
-    }
+    //public void addSubmitListener(SubmitListener listener){
+    	//listenerList.add(SubmitListener.class, listener);
+    //}
     
-    public void removeSubmitListener(SubmitListener listener){
-    	listenerList.remove(SubmitListener.class, listener);
-    }
+    //public void removeSubmitListener(SubmitListener listener){
+    	//listenerList.remove(SubmitListener.class, listener);
+    //}
+
+	@Override
+	public void selectEventOccured(SelectEvent event) {
+		this.setText(event.getLabelName());
+	}
 
 }

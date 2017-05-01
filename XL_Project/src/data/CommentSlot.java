@@ -25,4 +25,9 @@ public class CommentSlot implements Slot {
 		return content.toString();
 	}
 
+	@Override
+	public double value(Spreadsheet sheet) {
+		return 0;
+	}
+
 }

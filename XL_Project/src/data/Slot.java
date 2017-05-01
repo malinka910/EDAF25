@@ -12,5 +12,7 @@ public interface Slot {
 	 * @return content String. 
 	 */
 	public String getContent();
+	
+	public double value(Spreadsheet sheet);
 
 }

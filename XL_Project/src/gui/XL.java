@@ -15,17 +15,17 @@ import javax.swing.JPanel;
 import data.Spreadsheet;
 import gui.menu.XLMenuBar;
 
-//import data.Spreadsheet;
-
 public class XL extends JFrame implements Printable {
     
 	private static final long serialVersionUID = 1L;
 	private static final int ROWS = 10, COLUMNS = 8;
     private XLCounter counter;
-    private StatusLabel statusLabel = new StatusLabel();
-    //This window's current label will be constructed in the main frame so that the slot labels can have access to it
-    private CurrentLabel currentLabel = new CurrentLabel();
     private XLList xlList;
+    
+    private StatusLabel statusLabel = new StatusLabel();
+    private Editor editor = new Editor();
+    private CurrentLabel currentLabel = new CurrentLabel();
+    private Spreadsheet spreadsheet; 
 
     public XL(XL oldXL) {
         this(oldXL.xlList, oldXL.counter);
@@ -37,13 +37,25 @@ public class XL extends JFrame implements Printable {
         this.counter = counter;
         xlList.add(this);
         counter.increment();
-        //Create a blank spreadsheet
-        Spreadsheet spreadsheet = new Spreadsheet();
-        Editor editor = new Editor();
-        editor.addSubmitListener(spreadsheet);
+        
+        // Create a blank spreadsheet TODO: exchange for some spreadsheet creater from load and that sort of thing.
+        spreadsheet = new Spreadsheet();
+        
+        // Add observers and ExceptionListeners to the spreadsheet.
+        spreadsheet.addObserver(statusLabel);// clear the error line when submission excepted.
+        spreadsheet.addExceptionListener(statusLabel);// listens for exceptions in the model.
+        
+        // Add SubmitListeners and ExceptionListeners to the editor.
+        editor.addSubmitListener(spreadsheet);// model will listen for input from the editor.
+        editor.addExceptionListener(statusLabel);// listens for exceptions in the GUI.
+        
+        // Construct the GUI.
         JPanel statusPanel = new StatusPanel(statusLabel, currentLabel);
-        JPanel sheetPanel = new SheetPanel(ROWS, COLUMNS, currentLabel, editor, spreadsheet);
-        //editor.addObserver()
+        // Pass all of the SelectListeners to the SheetPanel constructor. These will be added to the SlotLabels as 
+        // SelectListeners as they are constructed.
+        JPanel sheetPanel = new SheetPanel(ROWS, COLUMNS, currentLabel, editor, spreadsheet, statusLabel);
+        
+        // Put everything together.
         add(NORTH, statusPanel);
         add(CENTER, editor);
         add(SOUTH, sheetPanel);

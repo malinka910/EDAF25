@@ -1,34 +1,51 @@
 package data;
 
-import java.io.IOException;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Observable;
-import java.util.Observer;
+
 import java.util.Set;
 
+import javax.swing.event.EventListenerList;
+
 import expr.Environment;
-import expr.Expr;
-import expr.ExprParser;
+import gui.ExceptionEvent;
+import gui.ExceptionListener;
 import gui.SubmitEvent;
 import gui.SubmitListener;
 /**
  * The data structure of for the XL program. It stores the spreadsheet data as an address-content mapping 
  * using a Hashmap<String,Slot>. It is also an observable that will update all of its observers when data 
  * is inserted or removed from the spreadsheet.
- * TODO: the strategy for loop checking is unimplemented as of yet.
  * @author Greg
  *
  */
 public class Spreadsheet extends Observable implements Environment, SubmitListener {
 	
 	HashMap<String,Slot> sheet;
+	private EventListenerList listenerList = new EventListenerList();
 	
-	/**
-	 * Constructor for blank spreadsheet.
-	 */
+	/** Constructor for blank spreadsheet. */
 	public Spreadsheet(){
 		sheet = new HashMap<String,Slot>();
+	}
+	
+	public void addExceptionListener(ExceptionListener listener){
+		listenerList.add(ExceptionListener.class, listener);
+	}
+	
+	public void removeExceptionListener(ExceptionListener listener){
+		listenerList.remove(ExceptionListener.class, listener);
+	}
+	
+	public void fireExceptionEvent(ExceptionEvent event){
+		Object[] listeners = listenerList.getListenerList();
+		for(Object l : listeners){
+			if(l instanceof ExceptionListener){
+				((ExceptionListener) l).exceptionEventOccured(event);;
+			}
+		}
 	}
 	
 	/**
@@ -37,63 +54,39 @@ public class Spreadsheet extends Observable implements Environment, SubmitListen
 	 * @param content to be inserted into the slot.
 	 * @return true if the insertion was sucessful. 
 	 */
-	public boolean insert(String slotName, String content){
-		boolean changed = false;
-		if(sheet.containsKey(slotName)){
-			// Check if comment or expression
-			if(sheet.get(slotName) instanceof ExpressionSlot){
-				// If comment: check for loops
-				if(loopChecker(slotName, content)){
-					// If no loops: put slot into the HashMap
-					sheet.put(slotName, new ExpressionSlot(content));
-					//System.out.println("Put old expression: True");
-					this.setChanged();
-					this.notifyObservers();
-					changed = true;
-				}else{
-					// If loops: don't put slot into HashMap and throw exception
-					// TODO THROW XLException
-					//System.out.println("Put old expression: False");
-					changed = false;
-				}
-			}else{
-				// If not an expression: Just add the comment to the HashMap
-				sheet.put(slotName, new CommentSlot(content));
-				//System.out.println("Put old not-expression: True");
-				this.setChanged();
-				this.notifyObservers();
-				changed = true;
-			}
+	public void insert(String slotName, String content){
+		SlotFactory factory = new SlotFactory();
+		Slot oldSlot = sheet.get(slotName);
+		sheet.put(slotName, factory.build(content));
+		if(changeCheckPassed()){
+			this.setChanged();
+			this.notifyObservers();
 		}else{
-			if(content.startsWith("#")){
-				sheet.put(slotName, new CommentSlot(content));
-				//System.out.println("Put new comment: True");
-				this.setChanged();
-				this.notifyObservers();
-				changed = true;
+			if(oldSlot == null){
+				sheet.remove(slotName);
 			}else{
-				sheet.put(slotName, new ExpressionSlot(content));
-				//System.out.println("Put new expression: True");
-				this.setChanged();
-				this.notifyObservers();
-				changed = true;
+				sheet.put(slotName, oldSlot);
 			}
 		}
-		//this.clearChanged();
-		return changed;
 	}
 	
 	/**
-	 * This method will check the current spreadsheet for self references in a new expression before 
-	 * the expression is inserted into the spreadsheet.
-	 * @param slotName of the slot to be changed
-	 * @param content that will be checked for self referential loops
-	 * @return true if no loop was found. 
+	 * Try to calculate the value for every filled slot in the spreadsheet.
+	 * @return true if the all values can be calculated without throwing an exception.
 	 */
-	private boolean loopChecker(String slotName, String content){
-		boolean loopNotFound = true;
-		//TODO Write code to test if there is a self reference
-		return loopNotFound;
+	private boolean changeCheckPassed(){
+		try{
+			for(String s : sheet.keySet()){
+				Slot oldSlot = sheet.get(s);
+				sheet.put(s, new DummySlot());
+				oldSlot.value(this);
+				sheet.put(s, oldSlot);
+			}
+			return true;
+		}catch(Exception e){
+			fireExceptionEvent(new ExceptionEvent(this, e.getMessage()));
+			return false;
+		}
 	}
 	
 	/**
@@ -114,17 +107,15 @@ public class Spreadsheet extends Observable implements Environment, SubmitListen
 	 */
 	@Override
 	public double value(String name) {
-		Slot s = sheet.get(name);
-		if( (s != null) && !(s instanceof CommentSlot) ){
-			ExprParser parser = new ExprParser();
-	        try {
-	        	Expr expr = parser.build(s.getContent());
-	        	return expr.value(this);
-	        }catch(IOException e){
-	        	//TODO make it do things on IOException
-	        }
+		if(sheet.containsKey(name)){
+			try{
+				return sheet.get(name).value(this);
+			}catch(Exception e){
+				throw new XLException(e.getMessage());
+			}
+		}else{
+			throw new XLException("Reference to Empty Slot");
 		}
-		return 0;
 	}
 	
 	/**
@@ -138,7 +129,6 @@ public class Spreadsheet extends Observable implements Environment, SubmitListen
 			this.notifyObservers();
 			this.clearChanged();
 		}
-		
 	}
 	
 	/**
@@ -168,8 +158,8 @@ public class Spreadsheet extends Observable implements Environment, SubmitListen
 
 	@Override
 	public void submitEventOccured(SubmitEvent submit) {
-		insert(submit.getCurrentSlot(), submit.getContent());
-		printToConsole();
+			insert(submit.getCurrentSlot(), submit.getContent());
+			printToConsole(); //For testing
 	}
 	
 	private void printToConsole(){
