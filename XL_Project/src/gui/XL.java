@@ -3,13 +3,19 @@ package gui;
 import static java.awt.BorderLayout.CENTER;
 import static java.awt.BorderLayout.NORTH;
 import static java.awt.BorderLayout.SOUTH;
-import gui.menu.XLMenuBar;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import data.Spreadsheet;
+import gui.menu.XLMenuBar;
+
+//import data.Spreadsheet;
 
 public class XL extends JFrame implements Printable {
     
@@ -31,7 +37,10 @@ public class XL extends JFrame implements Printable {
         this.counter = counter;
         xlList.add(this);
         counter.increment();
+        //Create a blank spreadsheet
+        Spreadsheet spreadsheet = new Spreadsheet();
         Editor editor = new Editor();
+        editor.addSubmitListener(spreadsheet);
         JPanel statusPanel = new StatusPanel(statusLabel, currentLabel);
         JPanel sheetPanel = new SheetPanel(ROWS, COLUMNS, currentLabel, editor);
         //editor.addObserver()

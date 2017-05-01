@@ -10,6 +10,8 @@ import java.util.Set;
 import expr.Environment;
 import expr.Expr;
 import expr.ExprParser;
+import gui.SubmitEvent;
+import gui.SubmitListener;
 /**
  * The data structure of for the XL program. It stores the spreadsheet data as an address-content mapping 
  * using a Hashmap<String,Slot>. It is also an observable that will update all of its observers when data 
@@ -18,7 +20,7 @@ import expr.ExprParser;
  * @author Greg
  *
  */
-public class Spreadsheet extends Observable implements Environment {
+public class Spreadsheet extends Observable implements Environment, SubmitListener {
 	
 	HashMap<String,Slot> sheet;
 	
@@ -35,7 +37,7 @@ public class Spreadsheet extends Observable implements Environment {
 	 * @param content to be inserted into the slot.
 	 * @return true if the insertion was sucessful. 
 	 */
-	public boolean instert(String slotName, String content){
+	public boolean insert(String slotName, String content){
 		boolean changed = false;
 		if(sheet.containsKey(slotName)){
 			// Check if comment or expression
@@ -77,7 +79,7 @@ public class Spreadsheet extends Observable implements Environment {
 				changed = true;
 			}
 		}
-		this.clearChanged();
+		//this.clearChanged();
 		return changed;
 	}
 	
@@ -162,6 +164,18 @@ public class Spreadsheet extends Observable implements Environment {
 			slotSet.add(builder.toString());
 		}
 		return slotSet;
+	}
+
+	@Override
+	public void submitEventOccured(SubmitEvent submit) {
+		insert(submit.getCurrentSlot(), submit.getContent());
+		printToConsole();
+	}
+	
+	private void printToConsole(){
+		for(String s : sheet.keySet()){
+			System.out.println(s + ":" + sheet.get(s).getContent() + ":" + value(s));
+		}
 	}
 
 }

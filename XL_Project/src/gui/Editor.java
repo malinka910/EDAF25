@@ -6,10 +6,12 @@ import java.awt.event.KeyListener;
 
 
 import javax.swing.JTextField;
+import javax.swing.event.EventListenerList;
 
 public class Editor extends JTextField implements KeyListener {
 	
 	private static final long serialVersionUID = 1L;
+	private EventListenerList listenerList = new EventListenerList();
 	
 	private String currentSlot;
 	
@@ -40,7 +42,17 @@ public class Editor extends JTextField implements KeyListener {
 			System.out.println("'" + this.getText() + "' into: " + currentSlot);
 			//TODO: Make sure this connects to a spreadsheet at some point
 			//fireSubmitEvent(new SubmitEvent(this, currentSlot, this.getText()));
+			fireSubmitEvent(new SubmitEvent(this, currentSlot, this.getText()));
+			this.setText("");
 		}
+	}
+	
+	public void addSubmitListener(SubmitListener listener){
+		listenerList.add(SubmitListener.class, listener);
+	}
+	
+	public void removeSubmitListener(SubmitListener listener){
+		listenerList.remove(SubmitListener.class, listener);
 	}
 	
 	//------------------------------------------

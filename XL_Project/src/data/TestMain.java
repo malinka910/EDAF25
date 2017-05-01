@@ -13,12 +13,12 @@ public class TestMain {
         try {
             Expr expr = parser.build("A3+A2*A1");
             Spreadsheet spreadsheet = new Spreadsheet();
-            spreadsheet.instert("A1", "3");
-            spreadsheet.instert("A2", "2");
-            spreadsheet.instert("A3", "1");
-            spreadsheet.instert("A4", "A1+A2");
-            spreadsheet.instert("A5", "A4+A3");
-            spreadsheet.instert("A6", "A5*2");
+            spreadsheet.insert("A1", "3");
+            spreadsheet.insert("A2", "2");
+            spreadsheet.insert("A3", "1");
+            spreadsheet.insert("A4", "A1+A2");
+            spreadsheet.insert("A5", "A4+A3");
+            spreadsheet.insert("A6", "A5*2");
             System.out.println(
     				"A1 = " + spreadsheet.value("A1") + " , " 
     				+ "A2 = " + spreadsheet.value("A2") + " , "
