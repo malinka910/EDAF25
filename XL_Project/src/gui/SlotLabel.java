@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Observable;
 import java.util.Observer;
+import data.Spreadsheet;
 
 import javax.swing.event.EventListenerList;
 
@@ -12,6 +13,7 @@ public class SlotLabel extends ColoredLabel implements Observer, MouseListener {
 	
 	private static final long serialVersionUID = 1L;
 	private String labelName;
+	//double value;
 	private EventListenerList listenerList = new EventListenerList();
 	
     public SlotLabel(String labelName) {
@@ -23,6 +25,21 @@ public class SlotLabel extends ColoredLabel implements Observer, MouseListener {
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO this will be an observer of the spreadsheet class when we get that far
+		// TODO we're gonna have to revisit this to implement clear functions. 
+		String content = ((Spreadsheet)o).content(labelName);
+		
+		if(content == null){
+			this.setText("");
+		}else{
+			if(content.startsWith("#")){
+				this.setText(content);
+				System.out.println(content);
+			}else{
+				StringBuilder builder = new StringBuilder();
+				builder.append(((Spreadsheet)o).value(labelName));
+				this.setText(builder.toString());
+			}
+		}
 	}
 	
 	public void fireSelectEvent(SelectEvent select){

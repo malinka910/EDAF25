@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.SwingConstants;
 
+import data.Spreadsheet;
+
 public class SlotLabels extends GridPanel {
     
 	private static final long serialVersionUID = 1L;
@@ -12,7 +14,7 @@ public class SlotLabels extends GridPanel {
 	private List<SlotLabel> labelList;
     private SlotLabel currentSlot;
 
-    public SlotLabels(int rows, int cols, CurrentLabel currentLabel, Editor editor) {
+    public SlotLabels(int rows, int cols, CurrentLabel currentLabel, Editor editor, Spreadsheet spreadsheet) {
         super(rows + 1, cols);
         labelList = new ArrayList<SlotLabel>(rows * cols);
         for (char ch = 'A'; ch < 'A' + cols; ch++) {
@@ -35,6 +37,7 @@ public class SlotLabels extends GridPanel {
                 	}
                 });
                 add(label);
+                spreadsheet.addObserver(label);
                 labelList.add(label);
             }
         }

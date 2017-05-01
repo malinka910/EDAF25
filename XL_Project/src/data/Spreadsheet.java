@@ -103,7 +103,7 @@ public class Spreadsheet extends Observable implements Environment, SubmitListen
 	 */
 	public String content(String name){
 		if(sheet.containsKey(name)){
-			return sheet.get(name).toString();
+			return sheet.get(name).getContent();
 		}else{
 			return null;
 		}
