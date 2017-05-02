@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.SwingConstants;
 
+import gui.menu.*;
 import data.Spreadsheet;
 
 public class SlotLabels extends GridPanel {
@@ -14,7 +15,7 @@ public class SlotLabels extends GridPanel {
 	private List<SlotLabel> labelList;
     private SlotLabel currentSlot;
 
-    public SlotLabels(int rows, int cols, CurrentLabel currentLabel, Editor editor, Spreadsheet spreadsheet, StatusLabel statusLabel) {
+    public SlotLabels(int rows, int cols, CurrentLabel currentLabel, Editor editor, Spreadsheet spreadsheet, StatusLabel statusLabel, ClearMenuItem clearMenuItem) {
         super(rows + 1, cols);
         labelList = new ArrayList<SlotLabel>(rows * cols);
         for (char ch = 'A'; ch < 'A' + cols; ch++) {
@@ -30,6 +31,7 @@ public class SlotLabels extends GridPanel {
                 label.addSelectListener(editor);
                 label.addSelectListener(statusLabel);
                 label.addSelectListener(currentLabel);
+                label.addSelectListener(clearMenuItem);
                 label.addSelectListener(new SelectListener(){
                 	public void selectEventOccured(SelectEvent select){
                 		String labelName = select.getLabelName();

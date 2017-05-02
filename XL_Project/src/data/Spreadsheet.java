@@ -131,11 +131,20 @@ public class Spreadsheet extends Observable implements Environment, SubmitListen
 	 * @param name of the slot to be cleared.
 	 */
 	public void clear(String name){
+		System.out.println("ClearMethodCalled" + name);
 		if(sheet.containsKey(name)){
+			System.out.println("SheetContainsName");
+			Slot oldSlot = sheet.get(name);
 			sheet.remove(name);
-			this.setChanged();
-			this.notifyObservers();
-			this.clearChanged();
+			if(changeCheckPassed()){
+				System.out.println("ChangeCeckPassed");
+				this.setChanged();
+				this.notifyObservers();
+				System.out.println("ObserversNotified");
+			}else{
+				System.out.println("ChangeCeck NOT Passed");
+				sheet.put(name, oldSlot);
+			}
 		}
 	}
 	
@@ -146,7 +155,6 @@ public class Spreadsheet extends Observable implements Environment, SubmitListen
 		sheet.clear();
 		this.setChanged();
 		this.notifyObservers();
-		this.clearChanged();
 	}
 	
 	/** Quick and dirty way to get all info for a save file
@@ -166,7 +174,13 @@ public class Spreadsheet extends Observable implements Environment, SubmitListen
 
 	@Override
 	public void submitEventOccured(SubmitEvent submit) {
-			insert(submit.getCurrentSlot(), submit.getContent());
+		if(submit.getContent() == null){
+			clear(submit.getCurrentSlot()); // SubmitEvent from ClearMenuItem
+		}else if(submit.getCurrentSlot()==null){
+			clearAll(); // SubmitEvent from ClearAllMenuItem
+		}else{
+			insert(submit.getCurrentSlot(), submit.getContent()); // SubmitEvent from Editor
+		}
 			printToConsole(); //For testing
 	}
 	

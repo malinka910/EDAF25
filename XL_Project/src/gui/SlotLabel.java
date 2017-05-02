@@ -6,6 +6,7 @@ import java.awt.event.MouseListener;
 import java.util.Observable;
 import java.util.Observer;
 import data.Spreadsheet;
+import gui.menu.ClearMenuItem;
 
 import javax.swing.event.EventListenerList;
 
@@ -73,7 +74,6 @@ public class SlotLabel extends ColoredLabel implements Observer, MouseListener {
 	/** Once a SlotLabel hears that it has been clicked (selected by the user), it will fire a SelectEvent. */
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		//System.out.println("SlotLabel Clicked: " + labelName);
 		fireSelectEvent(new SelectEvent(this, labelName, content));
 	}
 

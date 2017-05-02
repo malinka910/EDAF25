@@ -10,7 +10,7 @@ import gui.SelectListener;
 import gui.SubmitEvent;
 import gui.SubmitListener;
 
-class ClearMenuItem extends JMenuItem implements ActionListener, SelectListener {
+public class ClearMenuItem extends JMenuItem implements ActionListener, SelectListener {
     
 	private static final long serialVersionUID = 1L;
 	private String currentSlot;
@@ -24,7 +24,7 @@ class ClearMenuItem extends JMenuItem implements ActionListener, SelectListener 
     }
 
     public void actionPerformed(ActionEvent e) {
-        // TODO
+        fireSubmitEvent(new SubmitEvent(this, currentSlot, null));
     }
     
     //---------------------------------------------------------------
@@ -49,7 +49,7 @@ class ClearMenuItem extends JMenuItem implements ActionListener, SelectListener 
   				((SubmitListener) l).submitEventOccured(submit);
   			}
   		}
-      }
+    }
 
 	@Override
 	public void selectEventOccured(SelectEvent event) {

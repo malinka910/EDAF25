@@ -3,14 +3,17 @@ package gui;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JTextField;
 import javax.swing.event.EventListenerList;
 
 
+import data.Spreadsheet;
 import expr.ExprParser;
 
-public class Editor extends JTextField implements KeyListener, SelectListener {
+public class Editor extends JTextField implements KeyListener, SelectListener, Observer {
 	
 	private static final long serialVersionUID = 1L;
 	private EventListenerList listenerList = new EventListenerList();
@@ -60,6 +63,12 @@ public class Editor extends JTextField implements KeyListener, SelectListener {
 				}
 			}
 		}
+	}
+	
+	@Override
+	public void update(Observable o, Object arg) {
+		Spreadsheet sheet = (Spreadsheet) o;
+		this.setText(sheet.content(currentSlot));
 	}
 	
 	//---------------------------------------------------------------
@@ -122,8 +131,6 @@ public class Editor extends JTextField implements KeyListener, SelectListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// DO NOTHING
-	}
-
-	
+	}	
     
 }

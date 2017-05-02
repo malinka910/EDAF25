@@ -26,6 +26,7 @@ public class XL extends JFrame implements Printable {
     private Editor editor = new Editor();
     private CurrentLabel currentLabel = new CurrentLabel();
     private Spreadsheet spreadsheet; 
+    private XLMenuBar xlMenuBar;
 
     public XL(XL oldXL) {
         this(oldXL.xlList, oldXL.counter);
@@ -41,8 +42,12 @@ public class XL extends JFrame implements Printable {
         // Create a blank spreadsheet TODO: exchange for some spreadsheet creater from load and that sort of thing.
         spreadsheet = new Spreadsheet();
         
+        // Create the menu bar so we can get at the ClearMenuItem
+        xlMenuBar = new XLMenuBar(this, xlList, statusLabel, spreadsheet);
+        
         // Add observers and ExceptionListeners to the spreadsheet.
         spreadsheet.addObserver(statusLabel);// clear the error line when submission excepted.
+        spreadsheet.addObserver(editor); // needs to know what to display when the model changes state.
         spreadsheet.addExceptionListener(statusLabel);// listens for exceptions in the model.
         
         // Add SubmitListeners and ExceptionListeners to the editor.
@@ -53,13 +58,13 @@ public class XL extends JFrame implements Printable {
         JPanel statusPanel = new StatusPanel(statusLabel, currentLabel);
         // Pass all of the SelectListeners to the SheetPanel constructor. These will be added to the SlotLabels as 
         // SelectListeners as they are constructed.
-        JPanel sheetPanel = new SheetPanel(ROWS, COLUMNS, currentLabel, editor, spreadsheet, statusLabel);
+        JPanel sheetPanel = new SheetPanel(ROWS, COLUMNS, currentLabel, editor, spreadsheet, statusLabel, xlMenuBar.getClearMenuItem());
         
         // Put everything together.
         add(NORTH, statusPanel);
         add(CENTER, editor);
         add(SOUTH, sheetPanel);
-        setJMenuBar(new XLMenuBar(this, xlList, statusLabel));
+        setJMenuBar(xlMenuBar);
         pack();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
