@@ -1,4 +1,4 @@
-package util;
+package data;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -6,26 +6,21 @@ import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
 
-import data.Slot;
+import util.XLException;
 
-//TODO move to another package
-// Moved to data package
 public class XLBufferedReader extends BufferedReader {
     public XLBufferedReader(String name) throws FileNotFoundException {
         super(new FileReader(name));
     }
 
-    // TODO Change Object to something appropriate
-    // Object should be a hitherto unimplemented data.Slot
     public void load(Map<String, Slot> map) {
+    	SlotFactory factory = new SlotFactory();
         try {
             while (ready()) {
                 String string = readLine();
+                System.out.println(string);
                 int i = string.indexOf('=');
-                // TODO
-                //Slot slot = new Slot();
-                //slot.insert(string.substring(i+1, string.length()-i));
-                //map.put(string.substring(0, i-1), slot )
+                map.put(string.substring(0, i), factory.build(string.substring(i+1)));
             }
         } catch (Exception e) {
             throw new XLException(e.getMessage());

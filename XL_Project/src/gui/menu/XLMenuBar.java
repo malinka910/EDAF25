@@ -18,8 +18,12 @@ public class XLMenuBar extends JMenuBar {
         JMenu file = new JMenu("File");
         JMenu edit = new JMenu("Edit");
         file.add(new PrintMenuItem(xl, statusLabel));
-        file.add(new SaveMenuItem(xl, statusLabel));
-        file.add(new LoadMenuItem(xl, statusLabel));
+        SaveMenuItem save = new SaveMenuItem(xl, statusLabel);
+        save.addSubmitListener(spreadsheet);
+        file.add(save);
+        LoadMenuItem load = new LoadMenuItem(xl, statusLabel);
+        load.addSubmitListener(spreadsheet);
+        file.add(load);
         file.add(new NewMenuItem(xl));
         file.add(new CloseMenuItem(xl, xlList));
         ClearMenuItem clear = new ClearMenuItem();

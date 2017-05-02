@@ -16,6 +16,8 @@ import gui.ExceptionEvent;
 import gui.ExceptionListener;
 import gui.SubmitEvent;
 import gui.SubmitListener;
+import gui.menu.LoadMenuItem;
+import gui.menu.SaveMenuItem;
 import util.XLException;
 /**
  * The data structure of for the XL program. It stores the spreadsheet data as an address-content mapping 
@@ -174,7 +176,11 @@ public class Spreadsheet extends Observable implements Environment, SubmitListen
 
 	@Override
 	public void submitEventOccured(SubmitEvent submit) {
-		if(submit.getContent() == null){
+		if(submit.getSource() instanceof SaveMenuItem){
+			save(submit.getContent()); // SubmitEvent from SaveMenuItem
+		}else if(submit.getSource() instanceof LoadMenuItem){
+			load(submit.getContent()); // SubmitEvent from LoadMenuItem
+		}else if(submit.getContent() == null){
 			clear(submit.getCurrentSlot()); // SubmitEvent from ClearMenuItem
 		}else if(submit.getCurrentSlot()==null){
 			clearAll(); // SubmitEvent from ClearAllMenuItem
@@ -187,6 +193,30 @@ public class Spreadsheet extends Observable implements Environment, SubmitListen
 	private void printToConsole(){
 		for(String s : sheet.keySet()){
 			System.out.println(s + ":" + sheet.get(s).getContent() + ":" + value(s));
+		}
+	}
+	
+	private void save(String file){
+		try{
+			XLPrintStream stream = new XLPrintStream(file);
+			stream.save(sheet.entrySet());
+			stream.close();
+			this.setChanged();
+			this.notifyObservers();
+		}catch(Exception e){
+			fireExceptionEvent(new ExceptionEvent( this, e.getMessage()));
+		}
+	}
+	
+	private void load(String file){
+		try{
+			XLBufferedReader reader = new XLBufferedReader(file);
+			reader.load(sheet);
+			reader.close();
+			this.setChanged();
+			this.notifyObservers();
+		}catch(Exception e){
+			fireExceptionEvent(new ExceptionEvent(this, e.getMessage()));
 		}
 	}
 
