@@ -1,9 +1,12 @@
-package data;
+package util;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.HashMap;
 import java.util.Map;
+
+import data.Slot;
 
 //TODO move to another package
 // Moved to data package
@@ -14,7 +17,7 @@ public class XLBufferedReader extends BufferedReader {
 
     // TODO Change Object to something appropriate
     // Object should be a hitherto unimplemented data.Slot
-    public void load(Map<String, Object> map) {
+    public void load(Map<String, Slot> map) {
         try {
             while (ready()) {
                 String string = readLine();

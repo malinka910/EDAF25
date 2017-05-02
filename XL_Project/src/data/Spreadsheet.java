@@ -9,11 +9,14 @@ import java.util.Set;
 
 import javax.swing.event.EventListenerList;
 
+import com.sun.javafx.collections.MappingChange.Map;
+
 import expr.Environment;
 import gui.ExceptionEvent;
 import gui.ExceptionListener;
 import gui.SubmitEvent;
 import gui.SubmitListener;
+import util.XLException;
 /**
  * The data structure of for the XL program. It stores the spreadsheet data as an address-content mapping 
  * using a Hashmap<String,Slot>. It is also an observable that will update all of its observers when data 
@@ -29,6 +32,11 @@ public class Spreadsheet extends Observable implements Environment, SubmitListen
 	/** Constructor for blank spreadsheet. */
 	public Spreadsheet(){
 		sheet = new HashMap<String,Slot>();
+	}
+	
+	/** Constructor for a given  */
+	public Spreadsheet(HashMap<String,Slot> sheet){
+		this.sheet = new HashMap<String,Slot>();
 	}
 	
 	public void addExceptionListener(ExceptionListener listener){

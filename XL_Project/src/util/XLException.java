@@ -1,4 +1,4 @@
-package data;
+package util;
 
 public class XLException extends RuntimeException {
     

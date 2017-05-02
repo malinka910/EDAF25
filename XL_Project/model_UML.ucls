@@ -2,64 +2,193 @@
 <class-diagram version="1.1.13" icons="true" automaticImage="PNG" always-add-relationships="false" 
   generalizations="true" realizations="true" associations="true" dependencies="false" nesting-relationships="true" 
   router="FAN">  
-  <class id="1" language="java" name="data.XLException" project="XL_Project" 
-    file="/XL_Project/src/data/XLException.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="420" y="489"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="2" language="java" name="expr.Div" project="XL_Project" file="/XL_Project/src/expr/Div.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="448" y="711"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="3" language="java" name="expr.ExprParser" project="XL_Project" file="/XL_Project/src/expr/ExprParser.java" 
+  <interface id="1" language="java" name="data.Slot" project="XL_Project" file="/XL_Project/src/data/Slot.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="728" y="719"/>    
+    <position height="101" width="175" x="241" y="1195"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="2" language="java" name="data.SlotFactory" project="XL_Project" 
+    file="/XL_Project/src/data/SlotFactory.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="117" x="834" y="37"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="data.XLBufferedReader" project="XL_Project" 
-    file="/XL_Project/src/data/XLBufferedReader.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1020" y="269"/>    
+  <class id="3" language="java" name="data.CommentSlot" project="XL_Project" 
+    file="/XL_Project/src/data/CommentSlot.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="137" width="175" x="66" y="178"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="gui.menu.PrintMenuItem" project="XL_Project" 
-    file="/XL_Project/src/gui/menu/PrintMenuItem.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="750" y="445"/>    
+  <class id="4" language="java" name="data.DummySlot" project="XL_Project" file="/XL_Project/src/data/DummySlot.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="119" width="175" x="834" y="838"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="java.io.BufferedReader" project="ComandLineStudyApp" 
+  <class id="5" language="java" name="data.ExpressionSlot" project="XL_Project" 
+    file="/XL_Project/src/data/ExpressionSlot.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="137" width="175" x="834" y="178"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="data.Spreadsheet" project="XL_Project" 
+    file="/XL_Project/src/data/Spreadsheet.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="299" width="297" x="281" y="499"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="javax.swing.event.EventListenerList" project="XL_Project" 
     file="/Library/Java/JavaVirtualMachines/jdk1.8.0_65.jdk/Contents/Home/jre/lib/rt.jar" binary="true" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1448" y="264"/>    
+    <position height="317" width="231" x="281" y="838"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <generalization id="7">    
-    <end type="SOURCE" refId="4"/>    
+  <class id="8" language="java" name="java.util.Observable" project="XL_Project" 
+    file="/Library/Java/JavaVirtualMachines/jdk1.8.0_65.jdk/Contents/Home/jre/lib/rt.jar" binary="true" 
+    corner="BOTTOM_RIGHT">    
+    <position height="281" width="194" x="281" y="178"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="9" language="java" name="gui.SubmitListener" project="XL_Project" 
+    file="/XL_Project/src/gui/SubmitListener.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="83" width="242" x="552" y="838"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="10" language="java" name="expr.Environment" project="XL_Project" 
+    file="/XL_Project/src/expr/Environment.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="83" width="137" x="62" y="838"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <dependency id="11">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="12">    
+    <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <realization id="13">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="10"/>  
+  </realization>  
+  <dependency id="14">    
+    <bendpoint x="1060" y="178"/>    
+    <bendpoint x="1060" y="499"/>    
+    <bendpoint x="1060" y="838"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="15">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <association id="16">    
+    <bendpoint x="229" y="838"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="17" name="sheet">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="18" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="19">    
+    <bendpoint x="31" y="499"/>    
+    <bendpoint x="31" y="838"/>    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <realization id="20">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <realization id="21">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="9"/>  
+  </realization>  
+  <realization id="22">    
+    <bendpoint x="1018" y="499"/>    
+    <bendpoint x="1039" y="838"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <association id="23">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="24" name="listenerList">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="25" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="26">    
+    <bendpoint x="567" y="178"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="27">    
+    <bendpoint x="250" y="838"/>    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="28">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="29">    
+    <bendpoint x="1039" y="178"/>    
+    <bendpoint x="1039" y="499"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="30">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <generalization id="31">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="8"/>  
   </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    

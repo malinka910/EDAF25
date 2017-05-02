@@ -1,5 +1,7 @@
 package data;
 
+import util.XLException;
+
 public class DummySlot implements Slot {
 
 	

@@ -1,6 +1,6 @@
 package expr;
 
-import data.XLException;
+import util.XLException;
 
 class Div extends BinaryExpr {
     Div(Expr expr1, Expr expr2) {

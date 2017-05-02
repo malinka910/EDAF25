@@ -1,4 +1,4 @@
-package data;
+package util;
 
 import java.io.FileNotFoundException;
 import java.io.PrintStream;

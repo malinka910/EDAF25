@@ -1,6 +1,7 @@
 package data;
 
 import expr.ExprParser;
+import util.XLException;
 
 /**
  * Container for expressions
