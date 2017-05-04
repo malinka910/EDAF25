@@ -4,6 +4,11 @@ import java.awt.Color;
 import java.util.Observable;
 import java.util.Observer;
 
+import controller.ExceptionEvent;
+import controller.ExceptionListener;
+import controller.SelectEvent;
+import controller.SelectListener;
+
 public class StatusLabel extends ColoredLabel implements Observer, ExceptionListener, SelectListener {
 
 	private static final long serialVersionUID = 1L;

@@ -6,13 +6,11 @@ import java.util.Observable;
 
 import javax.swing.event.EventListenerList;
 
+import controller.ExceptionEvent;
+import controller.ExceptionListener;
+import controller.SubmitEvent;
+import controller.SubmitListener;
 import expr.Environment;
-import gui.ExceptionEvent;
-import gui.ExceptionListener;
-import gui.SubmitEvent;
-import gui.SubmitListener;
-import gui.menu.LoadMenuItem;
-import gui.menu.SaveMenuItem;
 import util.XLException;
 
 /**
@@ -91,10 +89,12 @@ public class Spreadsheet extends Observable implements Environment, SubmitListen
 	 * with the SubmitEvent. */
 	@Override
 	public void submitEventOccured(SubmitEvent submit) {
-		if(submit.getSource() instanceof SaveMenuItem){
+		if(submit.isSave()){
 			save(submit.getContent()); // SubmitEvent from SaveMenuItem
-		}else if(submit.getSource() instanceof LoadMenuItem){
+			System.out.println("save in sheet");
+		}else if(submit.isLoad()){
 			load(submit.getContent()); // SubmitEvent from LoadMenuItem
+			System.out.println("load in sheet");
 		}else if(submit.getContent() == null){
 			clear(submit.getCurrentSlot()); // SubmitEvent from ClearMenuItem
 		}else if(submit.getCurrentSlot()==null){

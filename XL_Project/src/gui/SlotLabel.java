@@ -10,6 +10,9 @@ import gui.menu.ClearMenuItem;
 
 import javax.swing.event.EventListenerList;
 
+import controller.SelectEvent;
+import controller.SelectListener;
+
 public class SlotLabel extends ColoredLabel implements Observer, MouseListener {
 	
 	private static final long serialVersionUID = 1L;

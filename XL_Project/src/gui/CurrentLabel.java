@@ -4,6 +4,9 @@ import java.awt.Color;
 
 import javax.swing.event.EventListenerList;
 
+import controller.SelectEvent;
+import controller.SelectListener;
+
 public class CurrentLabel extends ColoredLabel implements SelectListener {
 	
 	private static final long serialVersionUID = 1L;
