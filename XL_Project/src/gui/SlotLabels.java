@@ -8,7 +8,7 @@ import javax.swing.SwingConstants;
 import controller.SelectEvent;
 import controller.SelectListener;
 import gui.menu.*;
-import data.Spreadsheet;
+import model.Spreadsheet;
 
 public class SlotLabels extends GridPanel {
     

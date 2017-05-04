@@ -5,8 +5,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Observable;
 import java.util.Observer;
-import data.Spreadsheet;
+
 import gui.menu.ClearMenuItem;
+import model.Spreadsheet;
 
 import javax.swing.event.EventListenerList;
 

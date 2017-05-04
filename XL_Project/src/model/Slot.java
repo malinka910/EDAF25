@@ -1,4 +1,4 @@
-package data;
+package model;
 
 /**
  * An abstraction for the container classes for spreadsheet content. 

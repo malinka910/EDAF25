@@ -1,4 +1,4 @@
-package data;
+package model;
 
 import expr.ExprParser;
 import util.XLException;

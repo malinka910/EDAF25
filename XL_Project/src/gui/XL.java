@@ -12,8 +12,8 @@ import java.awt.print.Printable;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import data.Spreadsheet;
 import gui.menu.XLMenuBar;
+import model.Spreadsheet;
 
 public class XL extends JFrame implements Printable {
     
@@ -23,7 +23,7 @@ public class XL extends JFrame implements Printable {
     private XLList xlList;
     
     private StatusLabel statusLabel = new StatusLabel();
-    private Editor editor = new Editor();
+    private Editor editor = new Editor(statusLabel);
     private CurrentLabel currentLabel = new CurrentLabel();
     private Spreadsheet spreadsheet; 
     private XLMenuBar xlMenuBar;

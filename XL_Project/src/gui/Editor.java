@@ -15,21 +15,23 @@ import controller.SelectEvent;
 import controller.SelectListener;
 import controller.SubmitEvent;
 import controller.SubmitListener;
-import data.Spreadsheet;
 import expr.ExprParser;
+import model.Spreadsheet;
 
 public class Editor extends JTextField implements KeyListener, SelectListener, Observer {
 	
 	private static final long serialVersionUID = 1L;
 	private EventListenerList listenerList = new EventListenerList();
 	private String currentSlot;
+	private StatusLabel statusLabel;
 	
 	/** Editor instantiated with default slot 'A1'. 
 	 * Editor objects listen to SlotLabels for SelectEvents and to themselves for KeyEvents. */
-    public Editor() {
+    public Editor(StatusLabel statusLabel) {
         setBackground(Color.WHITE);
         currentSlot = "A1";
         addKeyListener(this);
+        this.statusLabel = statusLabel;
     }
     
     /** The Editor keeps track of the currentSlot by listening for a SlotLabel to fire a SelectEvent. 
@@ -37,7 +39,6 @@ public class Editor extends JTextField implements KeyListener, SelectListener, O
     @Override
 	public void selectEventOccured(SelectEvent event) {
 		this.currentSlot = event.getLabelName();
-		//TODO: Make sure that labelContent = null doesn't cause problems
 		this.setText(event.getLabelContent());
 	}
 
@@ -47,26 +48,9 @@ public class Editor extends JTextField implements KeyListener, SelectListener, O
      * with the error text will be fired to all ExceptionListeners registered with the Editor. */
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// When enter key pressed...
 		if(e.getKeyCode() == KeyEvent.VK_ENTER){
-			// Get text from field
 			String text = this.getText();
-			// If text is a comment -> submitEvent
-			if(text.startsWith("#")){
-				fireSubmitEvent(new SubmitEvent(this, currentSlot, text));
-			// If text is an expression...
-			}else{
-				// Try to parse it and see if the syntax is good...
-				ExprParser parser = new ExprParser();
-				try{
-					parser.build(text);
-					// If syntax is good -> submitEvent
-					fireSubmitEvent(new SubmitEvent(this, currentSlot, text));
-				}catch(Exception ex){
-					// If parsing fails -> exceptionEvent
-					fireExceptionEvent(new ExceptionEvent(this, ex.getMessage()));
-				}
-			}
+			fireSubmitEvent(new SubmitEvent(this, currentSlot, text, statusLabel));
 		}
 	}
 	

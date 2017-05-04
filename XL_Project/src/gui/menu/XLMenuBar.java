@@ -3,10 +3,10 @@ package gui.menu;
 import gui.StatusLabel;
 import gui.XL;
 import gui.XLList;
+import model.Spreadsheet;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-
-import data.Spreadsheet;
 
 public class XLMenuBar extends JMenuBar {
     

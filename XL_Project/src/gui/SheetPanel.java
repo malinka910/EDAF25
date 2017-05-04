@@ -3,9 +3,9 @@ package gui;
 import static java.awt.BorderLayout.CENTER;
 import static java.awt.BorderLayout.WEST;
 
-import data.Spreadsheet;
 import gui.menu.ClearMenuItem;
 import gui.menu.XLMenuBar;
+import model.Spreadsheet;
 
 public class SheetPanel extends BorderPanel {
     

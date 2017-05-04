@@ -1,4 +1,4 @@
-package data;
+package model;
 
 
 import java.util.HashMap;
@@ -89,7 +89,9 @@ public class Spreadsheet extends Observable implements Environment, SubmitListen
 	 * with the SubmitEvent. */
 	@Override
 	public void submitEventOccured(SubmitEvent submit) {
-		if(submit.isSave()){
+		if(submit.badSyntax()){
+			// Ignore the Submit Event. 
+		}else if(submit.isSave()){
 			save(submit.getContent()); // SubmitEvent from SaveMenuItem
 			System.out.println("save in sheet");
 		}else if(submit.isLoad()){
