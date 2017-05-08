@@ -18,7 +18,7 @@ public class XLBufferedReader extends BufferedReader {
         try {
             while (ready()) {
                 String string = readLine();
-                System.out.println(string);
+                //System.out.println(string);
                 int i = string.indexOf('=');
                 map.put(string.substring(0, i), factory.build(string.substring(i+1)));
             }

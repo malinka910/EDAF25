@@ -1,4 +1,4 @@
-package controller;
+package gui;
 
 import java.awt.event.KeyListener;
 import java.util.EventListener;

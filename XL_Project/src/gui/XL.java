@@ -27,6 +27,7 @@ public class XL extends JFrame implements Printable {
     private CurrentLabel currentLabel = new CurrentLabel();
     private Spreadsheet spreadsheet; 
     private XLMenuBar xlMenuBar;
+    private Controller controller = new Controller();
 
     public XL(XL oldXL) {
         this(oldXL.xlList, oldXL.counter);
@@ -38,20 +39,19 @@ public class XL extends JFrame implements Printable {
         this.counter = counter;
         xlList.add(this);
         counter.increment();
-        
-        // Create a blank spreadsheet TODO: exchange for some spreadsheet creater from load and that sort of thing.
+
         spreadsheet = new Spreadsheet();
+        controller.addObserver(spreadsheet);
         
         // Create the menu bar so we can get at the ClearMenuItem
-        xlMenuBar = new XLMenuBar(this, xlList, statusLabel, spreadsheet);
+        xlMenuBar = new XLMenuBar(this, xlList, statusLabel, controller);
         
         // Add observers and ExceptionListeners to the spreadsheet.
         spreadsheet.addObserver(statusLabel);// clear the error line when submission excepted.
         spreadsheet.addObserver(editor); // needs to know what to display when the model changes state.
-        spreadsheet.addExceptionListener(statusLabel);// listens for exceptions in the model.
         
         // Add SubmitListeners and ExceptionListeners to the editor.
-        editor.addSubmitListener(spreadsheet);// model will listen for input from the editor.
+        editor.addSubmitListener(controller);
         editor.addExceptionListener(statusLabel);// listens for exceptions in the GUI.
         
         // Construct the GUI.

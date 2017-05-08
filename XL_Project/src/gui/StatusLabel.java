@@ -4,11 +4,6 @@ import java.awt.Color;
 import java.util.Observable;
 import java.util.Observer;
 
-import controller.ExceptionEvent;
-import controller.ExceptionListener;
-import controller.SelectEvent;
-import controller.SelectListener;
-
 public class StatusLabel extends ColoredLabel implements Observer, ExceptionListener, SelectListener {
 
 	private static final long serialVersionUID = 1L;
@@ -25,9 +20,7 @@ public class StatusLabel extends ColoredLabel implements Observer, ExceptionList
 	 * error message. */
 	@Override
 	public void exceptionEventOccured(ExceptionEvent event) {
-		System.out.println("StatusLabel ExceptionEvent");
 		String message = event.getMessage();
-		System.out.println("ExceptionEvent: " + message);
 		this.setText(message);
 	}
 
@@ -41,6 +34,11 @@ public class StatusLabel extends ColoredLabel implements Observer, ExceptionList
 	/** When the StatusLabel observes that the model has changed, it clears any error message. */
 	@Override
 	public void update(Observable o, Object arg) {
-		this.setText("");
+		
+		if(arg == null){
+			this.setText("");
+		}else{
+			this.setText(((Exception)arg).getMessage());
+		}
 	}
 }

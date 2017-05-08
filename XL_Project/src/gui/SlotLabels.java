@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.SwingConstants;
 
-import controller.SelectEvent;
-import controller.SelectListener;
 import gui.menu.*;
 import model.Spreadsheet;
 

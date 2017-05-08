@@ -11,7 +11,7 @@ public class DummySlot implements Slot {
 
 	@Override
 	public String getContent() {
-		throw new XLException("Dummy Content Requested");
+		throw new XLException("Loop Found");
 	}
 
 	@Override

@@ -9,13 +9,6 @@ import java.util.Observer;
 import javax.swing.JTextField;
 import javax.swing.event.EventListenerList;
 
-import controller.ExceptionEvent;
-import controller.ExceptionListener;
-import controller.SelectEvent;
-import controller.SelectListener;
-import controller.SubmitEvent;
-import controller.SubmitListener;
-import expr.ExprParser;
 import model.Spreadsheet;
 
 public class Editor extends JTextField implements KeyListener, SelectListener, Observer {
@@ -56,8 +49,10 @@ public class Editor extends JTextField implements KeyListener, SelectListener, O
 	
 	@Override
 	public void update(Observable o, Object arg) {
-		Spreadsheet sheet = (Spreadsheet) o;
-		this.setText(sheet.content(currentSlot));
+		if(arg == null){
+			Spreadsheet sheet = (Spreadsheet) o;
+			this.setText(sheet.content(currentSlot));
+		}
 	}
 	
 	//---------------------------------------------------------------

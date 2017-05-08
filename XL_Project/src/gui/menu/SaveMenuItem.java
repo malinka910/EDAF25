@@ -1,13 +1,12 @@
 package gui.menu;
 
 import gui.StatusLabel;
+import gui.SubmitEvent;
+import gui.SubmitListener;
 import gui.XL;
 import java.io.FileNotFoundException;
 import javax.swing.JFileChooser;
 import javax.swing.event.EventListenerList;
-
-import controller.SubmitEvent;
-import controller.SubmitListener;
 
 public class SaveMenuItem extends OpenMenuItem {
     
@@ -43,7 +42,6 @@ public class SaveMenuItem extends OpenMenuItem {
   	
   	/** Call submitEventOccured() on every SubmitListener in the eventListenerList */
   	public void fireSubmitEvent(SubmitEvent submit){
-  		System.out.println("save in menu");
       	Object[] listeners = listenerList.getListenerList();
   		for(Object l : listeners){
   			if(l instanceof SubmitListener){

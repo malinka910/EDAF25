@@ -11,9 +11,6 @@ import model.Spreadsheet;
 
 import javax.swing.event.EventListenerList;
 
-import controller.SelectEvent;
-import controller.SelectListener;
-
 public class SlotLabel extends ColoredLabel implements Observer, MouseListener {
 	
 	private static final long serialVersionUID = 1L;
@@ -34,22 +31,25 @@ public class SlotLabel extends ColoredLabel implements Observer, MouseListener {
      * value to the user. */
 	@Override
 	public void update(Observable o, Object arg) { 
-		content = ((Spreadsheet)o).content(labelName);
-		if(content == null){
-			this.setText("");
-		}else{
-			if(content.startsWith("#")){
-				this.setText(content.substring(1));
-				System.out.println(content);
+		if(arg == null){
+			content = ((Spreadsheet)o).content(labelName);
+			if(content == null){
+				this.setText("");
 			}else{
+				if(content.startsWith("#")){
+					this.setText(content.substring(1));
+				//System.out.println("SlotLabel " + labelName + ": " + content);
+				}else{
+					this.setText(content);
 				//TODO: This is unnecessary... The data won't be in the model if it's not acceptable content.
-				try{
-					StringBuilder builder = new StringBuilder();
-					builder.append(((Spreadsheet)o).value(labelName));
-					this.setText(builder.toString());
-				}catch(Exception e){
-					//System.out.println("SlotLabel Exception: " + e.getMessage());
-					this.setText("*"); //TODO: can steamline this, the model won't update unless everything is alright.
+				//try{
+//					StringBuilder builder = new StringBuilder();
+//					builder.append(((Spreadsheet)o).value(labelName));
+//					this.setText(builder.toString());
+//				}catch(Exception e){
+//					//System.out.println("SlotLabel Exception: " + e.getMessage());
+//					this.setText("*"); //TODO: can steamline this, the model won't update unless everything is alright.
+//				}
 				}
 			}
 		}

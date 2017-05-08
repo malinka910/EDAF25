@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenuItem;
 import javax.swing.event.EventListenerList;
 
-import controller.SubmitEvent;
-import controller.SubmitListener;
+import gui.SubmitEvent;
+import gui.SubmitListener;
 
 class ClearAllMenuItem extends JMenuItem implements ActionListener {
     

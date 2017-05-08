@@ -3,13 +3,8 @@ package model;
 
 import java.util.HashMap;
 import java.util.Observable;
+import java.util.Observer;
 
-import javax.swing.event.EventListenerList;
-
-import controller.ExceptionEvent;
-import controller.ExceptionListener;
-import controller.SubmitEvent;
-import controller.SubmitListener;
 import expr.Environment;
 import util.XLException;
 
@@ -19,10 +14,9 @@ import util.XLException;
  * a state change. It listens to components in the GUI for SubmitEvents and fires ExceptionEvents when exceptions 
  * are thrown internally.
  */
-public class Spreadsheet extends Observable implements Environment, SubmitListener {
+public class Spreadsheet extends Observable implements Environment, Observer {
 	
 	HashMap<String,Slot> sheet;
-	private EventListenerList listenerList = new EventListenerList();
 	
 	/** Constructor for blank spreadsheet. */
 	public Spreadsheet(){
@@ -46,7 +40,8 @@ public class Spreadsheet extends Observable implements Environment, SubmitListen
 			}
 			return true;
 		}catch(Exception e){
-			fireExceptionEvent(new ExceptionEvent(this, e.getMessage()));
+			setChanged();
+			notifyObservers(e);
 			return false;
 		}
 	}
@@ -81,35 +76,36 @@ public class Spreadsheet extends Observable implements Environment, SubmitListen
 		}
 	}
 	
-	//---------------------------------------------------------------
-	// SubmitEvent handler
-	//---------------------------------------------------------------
-	
-	/** SubmitEvents are fired (directly and indirectly) by user input. This is the method that decides how to deal 
-	 * with the SubmitEvent. */
 	@Override
-	public void submitEventOccured(SubmitEvent submit) {
-		if(submit.badSyntax()){
-			// Ignore the Submit Event. 
-		}else if(submit.isSave()){
-			save(submit.getContent()); // SubmitEvent from SaveMenuItem
-			System.out.println("save in sheet");
-		}else if(submit.isLoad()){
-			load(submit.getContent()); // SubmitEvent from LoadMenuItem
-			System.out.println("load in sheet");
-		}else if(submit.getContent() == null){
-			clear(submit.getCurrentSlot()); // SubmitEvent from ClearMenuItem
-		}else if(submit.getCurrentSlot()==null){
-			clearAll(); // SubmitEvent from ClearAllMenuItem
-		}else{
-			insert(submit.getCurrentSlot(), submit.getContent()); // SubmitEvent from Editor
+	public void update(Observable o, Object arg) {
+		
+		String input = arg.toString();
+		String instruction = input.substring(0, input.indexOf("="));
+		String where = input.substring(input.indexOf("=")+1);
+
+		switch(instruction){
+		
+			case "save":
+				save(where); 
+				break;
+				
+			case "load":
+				load(where);
+				break;
+				
+			case "clear": 
+				clear(where); 
+				break;
+				
+			case "clearAll": 
+				clearAll();
+				break;
+				
+			default: 
+				insert(instruction , where);
+				
 		}
-			//printToConsole(); //For testing
 	}
-	
-	//---------------------------------------------------------------
-	// methods that can be called in response to a SubmitEvent
-	//---------------------------------------------------------------
 	
 	/**
 	 * A method to insert content into a slot in the spreadsheet.
@@ -138,18 +134,13 @@ public class Spreadsheet extends Observable implements Environment, SubmitListen
 	 * @param name of the slot to be cleared.
 	 */
 	private void clear(String name){
-		System.out.println("ClearMethodCalled" + name);
 		if(sheet.containsKey(name)){
-			System.out.println("SheetContainsName");
 			Slot oldSlot = sheet.get(name);
 			sheet.remove(name);
 			if(integrityCheckPassed()){
-				System.out.println("ChangeCeckPassed");
 				this.setChanged();
 				this.notifyObservers();
-				System.out.println("ObserversNotified");
 			}else{
-				System.out.println("ChangeCeck NOT Passed");
 				sheet.put(name, oldSlot);
 			}
 		}
@@ -159,7 +150,7 @@ public class Spreadsheet extends Observable implements Environment, SubmitListen
 	private void clearAll(){
 		sheet.clear();
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(null);
 	}
 	
 	/** Save the current spreadsheet to the given file. */
@@ -169,73 +160,26 @@ public class Spreadsheet extends Observable implements Environment, SubmitListen
 			stream.save(sheet.entrySet());
 			stream.close();
 			this.setChanged();
-			this.notifyObservers();
+			this.notifyObservers(null);
 		}catch(Exception e){
-			fireExceptionEvent(new ExceptionEvent( this, e.getMessage()));
+			setChanged();
+			notifyObservers(e);
 		}
 	}
 	
 	/** Load a saved spreadsheet from the given file. */
 	private void load(String file){
 		try{
+			clearAll();
 			XLBufferedReader reader = new XLBufferedReader(file);
 			reader.load(sheet);
 			reader.close();
 			this.setChanged();
-			this.notifyObservers();
+			this.notifyObservers(null);
 		}catch(Exception e){
-			fireExceptionEvent(new ExceptionEvent(this, e.getMessage()));
+			setChanged();
+			notifyObservers(e);
 		}
 	}
 	
-	//---------------------------------------------------------------
-	// add/remove ExceptionListeners and fire ExceptionEvent
-	//---------------------------------------------------------------
-	
-	/** Add an ExceptionListener to the eventListenerList */
-	public void addExceptionListener(ExceptionListener listener){
-		listenerList.add(ExceptionListener.class, listener);
-	}
-	
-	/** Remove an ExceptionListener from the eventListenerList */
-	public void removeExceptionListener(ExceptionListener listener){
-		listenerList.remove(ExceptionListener.class, listener);
-	}
-	
-	/** Call exceptionEventOccured() on every ExceptionListener in the eventListenerList */
-	private void fireExceptionEvent(ExceptionEvent event){
-		Object[] listeners = listenerList.getListenerList();
-		for(Object l : listeners){
-			if(l instanceof ExceptionListener){
-				((ExceptionListener) l).exceptionEventOccured(event);;
-			}
-		}
-	}
-	
-	//---------------------------------------------------------------
-	// private testing methods
-	//---------------------------------------------------------------
-	
-//	/** Private testing method to print the content of the spreadsheet to the console. */
-//	private void printToConsole(){
-//		for(String s : sheet.keySet()){
-//			System.out.println(s + ":" + sheet.get(s).getContent() + ":" + value(s));
-//		}
-//	}
-	
-//	/** Quick and dirty way to get all info for a save file
-//	 * getSlotSet() returns a set of strings that are the key-value mappings for the slots in 
-//	 * the HashMap */
-//	public Set<String> getSlotSet(){
-//		Set<String> slotSet = new HashSet<String>();
-//		for(String key : sheet.keySet()){
-//			StringBuilder builder = new StringBuilder();
-//			builder.append(key.toLowerCase());
-//			builder.append("=");
-//			builder.append(sheet.get(key).getContent());
-//			slotSet.add(builder.toString());
-//		}
-//		return slotSet;
-//	}
-
 }
