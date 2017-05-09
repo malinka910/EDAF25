@@ -27,7 +27,7 @@ public class XL extends JFrame implements Printable {
     private CurrentLabel currentLabel = new CurrentLabel();
     private Spreadsheet spreadsheet; 
     private XLMenuBar xlMenuBar;
-    private Controller controller = new Controller();
+    private SubmitHandler controller = new SubmitHandler();
 
     public XL(XL oldXL) {
         this(oldXL.xlList, oldXL.counter);

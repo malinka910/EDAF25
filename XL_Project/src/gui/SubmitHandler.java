@@ -4,9 +4,9 @@ import java.util.Observable;
 
 import model.Spreadsheet;
 
-public class Controller extends Observable implements SubmitListener {
+public class SubmitHandler extends Observable implements SubmitListener {
 	
-	public Controller(){
+	public SubmitHandler(){
 
 	}
 

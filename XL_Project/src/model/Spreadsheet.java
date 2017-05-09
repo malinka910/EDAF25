@@ -26,6 +26,7 @@ public class Spreadsheet extends Observable implements Environment, Observer {
 	//----------------------------------------------------------------------------
 	// Strategy to check the integrity of the data before changes are finalized 
 	//----------------------------------------------------------------------------
+	
 	/**
 	 * Try to calculate the value for every filled slot in the spreadsheet.
 	 * @return true if the all values can be calculated without throwing an exception.
