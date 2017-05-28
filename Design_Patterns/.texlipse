@@ -1,0 +1,14 @@
+#TeXlipse project settings
+#Sun Feb 12 14:01:03 CET 2017
+markTmpDer=true
+builderNum=2
+outputDir=
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=tmp
+mainTexFile=Patterns.tex
+outputFile=Patterns.pdf
+langSpell=en
+markDer=true
+srcDir=
